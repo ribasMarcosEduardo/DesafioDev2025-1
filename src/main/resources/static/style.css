@@ -1,0 +1,79 @@
+/* ------------------ ESTILOS GERAIS DA PÁGINA ------------------ */
+body {
+    padding: 0;                 /* Remove o espaço interno padrão */
+    margin: 0;                  /* Remove as margens padrão */
+    display: flex;              /* Ativa o Flexbox para organizar o layout */
+    justify-content: center;    /* Centraliza o formulário horizontalmente */
+    align-items: center;        /* Centraliza o formulário verticalmente */
+    height: 100vh;              /* Define a altura como 100% da viewport */
+    background-color: #f8f9fa;  /* Define uma cor de fundo clara para a tela */
+}
+
+/* ------------------ ESTILO DO FORMULÁRIO ------------------ */
+.form-container {
+    padding: 5px 10px;         /* Adiciona espaço interno ao formulário */
+    background-color: #ffffff;  /* Define o fundo branco do formulário */
+    border-radius: 15px;        /* Cria bordas arredondadas */
+    /*box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);  Adiciona uma sombra suave */
+    max-width: 600px;           /* Limita a largura máxima do formulário */
+    width: 100%;                /* Garante que o formulário seja responsivo */
+
+}
+
+/* ------------------ ESTILO DOS CAMPOS DO FORMULÁRIO ------------------ */
+.campo_config {
+    text-transform: uppercase;  /* Transforma o texto dos campos para maiúsculas */
+}
+
+/* ------------------ LAYOUT EM LINHAS (FLEXBOX) ------------------ */
+.row {
+    display: flex;              /* Ativa o Flexbox para organizar os elementos em linha */
+    gap: 10px;                  /* Adiciona espaço entre os elementos filhos */
+    margin-bottom: 5px;        /* Espaçamento abaixo do elemento */
+    /*border: 2px solid red;*/
+}
+
+/* ------------------ COLUNAS RESPONSIVAS ------------------ */
+.col {
+    flex; 1
+}
+
+/* --------------------- TESTE CLASSE ---------------------- */
+
+.div-teste{
+    border: 2px solid red;       /* Borda vermelha com 2px de espessura */
+    padding: 10px;              /* Espaçamento interno */
+
+}
+
+
+.div-borda{
+    background-color: #ffffff;
+    padding: 10px;              /* Espaçamento interno */
+    border-radius: 15px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.titulo{
+    text-align: left;
+    color: #2c3e50;
+}
+
+ /* Oculta o menu dropdown por padrão */
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+        /* Ajusta o comportamento do dropdown */
+.dropdown-menu {
+    margin-top: 0;
+}
+
+.header-container {
+    padding: 5px 10px;         /* Adiciona espaço interno ao formulário */
+    background-color: #ffffff;  /* Define o fundo branco do formulário */
+     border-radius: 0 0 15px 15px;/* Cria bordas arredondadas */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+
+}

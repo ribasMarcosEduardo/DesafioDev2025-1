@@ -15,8 +15,17 @@ public class Pessoa{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(name = "NOME", nullable = false,  length = 500)
+    private String nome;
+
     @Column(name = "CPF", nullable = false , length = 11)
     private String cpf;
+
+    @Column(name = "TELEFONE", nullable = false,  length = 20)
+    private String telefone;
+
+    @Column(name = "EMAIL", nullable = false,  length = 250)
+    private String email;
 
     @Column(name = "ATIVO", nullable = false)
     private boolean ativo;
