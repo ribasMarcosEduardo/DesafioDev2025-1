@@ -3,6 +3,7 @@ package gitHub.ribasMarcosEduardo.gestaoDeCurso;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+
 @SpringBootApplication
 public class GestaoDeCursoApplication {
 
