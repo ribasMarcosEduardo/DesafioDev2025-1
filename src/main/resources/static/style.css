@@ -1,7 +1,6 @@
 /* ------------------ ESTILOS GERAIS DA PÁGINA ------------------ */
 body {
-    padding: 0;                 /* Remove o espaço interno padrão */
-    margin: 0;                  /* Remove as margens padrão */
+               /* Remove as margens padrão */
     display: flex;              /* Ativa o Flexbox para organizar o layout */
     justify-content: center;    /* Centraliza o formulário horizontalmente */
     align-items: center;        /* Centraliza o formulário verticalmente */
@@ -59,21 +58,23 @@ body {
     color: #2c3e50;
 }
 
- /* Oculta o menu dropdown por padrão */
-
-.dropdown:hover .dropdown-menu {
-    display: block;
+.div-alert{
+        padding: 1px;
+        position: fixed;
+        top: 110px;
+        left: 0;
+        right: 0;
+        margin: auto;
+        width: 15%; /* Ajusta a largura do elemento */
 }
 
-        /* Ajusta o comportamento do dropdown */
-.dropdown-menu {
-    margin-top: 0;
-}
-
-.header-container {
-    padding: 5px 10px;         /* Adiciona espaço interno ao formulário */
-    background-color: #ffffff;  /* Define o fundo branco do formulário */
-     border-radius: 0 0 15px 15px;/* Cria bordas arredondadas */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-
+.custom-header {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background-color: #f8f9fa; /* Fundo claro */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Adiciona sombra para destaque */
+    border-radius: 0 0 15px 15px;
+    padding: 17px 15px;
 }
