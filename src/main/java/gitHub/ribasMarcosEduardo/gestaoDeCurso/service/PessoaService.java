@@ -11,7 +11,7 @@ public class PessoaService {
 
     private final PessoaRepository repository;
 
-    public Pessoa salvarProduto(Pessoa pessoa) {
+    public Pessoa salvarPessoa(Pessoa pessoa) {
         return repository.save(pessoa);
     }
 }

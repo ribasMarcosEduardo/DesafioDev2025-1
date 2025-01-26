@@ -1,12 +1,14 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
+    <meta th:if="${mensagemSucesso}" http-equiv="refresh" content="3">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
     <link rel="stylesheet" href="/style.css">
-    <title>Deseducare</title>
+
+    <title>Cadastro de Pessoa</title>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
@@ -55,6 +57,61 @@
 
         </div>
     </div>
+</div> <!-- headder -->
+
+<div class="div-alert">
+    <div style=" text-align: center; line-height: 50px;" th:if="${mensagemSucesso}" class="alert alert-success">
+        <p th:text="${mensagemSucesso}"></p>
+    </div>
+</div>  <!-- Alert -->
+
+
+<div class="div-borda">
+    <h3 class="titulo">Cadastro de Endereço:</h3>
+
+    <form class="form-container" th:action="@{endereco/salvarEndereco}" th:object="${enderecoDTO}" method="post">
+        <div class="row">
+            <div class="col">
+                <label th:for="*{CODPESSOA}" class="form-label">Código</label>
+                <input type="text" class="form-control campo_config" th:field="*{CODPESSOA}" id="CODPESSOA" required>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <label th:for="*{cidade}" class="form-label">Cidade:</label>
+                <input type="text" class="form-control campo_config" th:field="*{cidade}" id="cidade" required>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <label th:for="*{cep}" class="form-label">CEP:</label>
+                <input type="text" class="form-control campo_config" th:field="*{cep}" id="cep" required>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <label th:for="*{rua}" class="form-label">Rua:</label>
+                <input type="text" class="form-control" th:field="*{rua}" id="rua" required>
+            </div>
+
+            <div class="col">
+                <label th:for="*{numero}" class="form-label">Número:</label>
+                <input type="text" class="form-control" th:field="*{numero}" id="numero" required>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <button type="submit" class="btn btn-success">Save</button>
+                <a th:href="@{/menuPrincipal}" class="btn btn-danger">Cancel</a>
+            </div>
+        </div>
+    </form>
+
 </div>
 
 </body>

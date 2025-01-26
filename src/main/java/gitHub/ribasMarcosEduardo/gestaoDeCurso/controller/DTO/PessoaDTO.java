@@ -2,10 +2,19 @@ package gitHub.ribasMarcosEduardo.gestaoDeCurso.controller.DTO;
 
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.entity.Pessoa;
 
-public record PessoaDTO (String nome,String cpf, String email, String telefone,  String usuario, String senha, boolean ativo){
+public record PessoaDTO (
+        String nome,
+        String cpf,
+        String email,
+        String telefone,
+        String usuario,
+        String senha,
+        boolean ativo
+){
 
-    public PessoaDTO(){
-        this(null,null,null,null,null,null,false);
+    public PessoaDTO() {
+
+        this(null,null,null,null,null,null,false); // Valores padrão
     }
 
     public Pessoa mapearPessoa(){
