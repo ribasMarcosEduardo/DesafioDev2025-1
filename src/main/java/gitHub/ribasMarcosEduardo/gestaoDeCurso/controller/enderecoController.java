@@ -5,6 +5,8 @@ import gitHub.ribasMarcosEduardo.gestaoDeCurso.controller.DTO.EnderecoDTO;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.entity.Pessoa;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.entity.PessoaEndereco;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.service.EnderecoService;
+import gitHub.ribasMarcosEduardo.gestaoDeCurso.service.exeption.EnderecoJaCadastradoException;
+import gitHub.ribasMarcosEduardo.gestaoDeCurso.service.exeption.PessoaNaoEncontradaException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,27 +17,22 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequiredArgsConstructor
 @Controller
 @RequestMapping("/endereco")
-public class enderecoController {
+public class enderecoController{
 
     private final EnderecoService enderecoService;
 
     @PostMapping("salvarEndereco")
     public String salvarEndereco(@ModelAttribute EnderecoDTO enderecoDTO, RedirectAttributes redirectAttributes) {
         try {
-            System.out.println("EnderecoDTO - Pessoa: " + enderecoDTO.CODPESSOA()); // Debug
-
-            Pessoa pessoa = enderecoService.buscarPessoa(enderecoDTO.CODPESSOA()); // Busca a pessoa
-            PessoaEndereco endereco = enderecoDTO.mapearEndereco(pessoa);          // Mapeia o DTO para a entidade
-
-            enderecoService.salvarEndereco(endereco);                              // Salva o endereço
-
+            PessoaEndereco endereco = enderecoDTO.mapearEndereco();  // Mapeia e salva o endereço
+            enderecoService.salvarEndereco(endereco);
             redirectAttributes.addFlashAttribute("mensagemSucesso", "Endereço salvo com sucesso!");
-        } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("mensagemErro", "Erro ao salvar endereço: " + e.getMessage());
-            e.printStackTrace(); // Debug de erros
+        } catch (PessoaNaoEncontradaException e) {
+            redirectAttributes.addFlashAttribute("PessoaNaoEncontradaE", e.getMessage());
+        } catch (EnderecoJaCadastradoException e) {
+            redirectAttributes.addFlashAttribute("mensagemErroJaCadastrado", e.getMessage());
         }
-
-        return "redirect:/cadastroEndereco";
+        return "redirect:/cadastroEndereco";  // Redireciona de volta para a mesma página
     }
 
 }

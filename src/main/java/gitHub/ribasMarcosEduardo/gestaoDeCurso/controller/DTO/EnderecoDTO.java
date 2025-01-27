@@ -4,7 +4,7 @@ import gitHub.ribasMarcosEduardo.gestaoDeCurso.entity.Pessoa;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.entity.PessoaEndereco;
 
 public record EnderecoDTO(
-        Integer CODPESSOA,
+        Pessoa CODPESSOA,
         String cidade,
         String cep,
         String rua,
@@ -12,12 +12,12 @@ public record EnderecoDTO(
 ) {
 
     public EnderecoDTO() {
-        this(null,null,null,null, null); // Valores padrão
+        this(null,null,null,null, null);
     }
 
-    public PessoaEndereco mapearEndereco(Pessoa pessoa) {
+    public PessoaEndereco mapearEndereco() {
         PessoaEndereco endereco = new PessoaEndereco();
-        endereco.setPessoa(pessoa);
+        endereco.setPessoa(this.CODPESSOA);
         endereco.setCidade(this.cidade);
         endereco.setCep(this.cep);
         endereco.setRua(this.rua);
