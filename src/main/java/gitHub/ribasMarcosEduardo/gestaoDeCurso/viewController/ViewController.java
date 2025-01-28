@@ -30,7 +30,7 @@ public class ViewController {
     @GetMapping("cadastroCurso")
     public String cadastroCurso(Model model){
         model.addAttribute("cursoDTO", new CursoDTO());
-        return "cadastroEndereco"; // http://localhost:8080/cadastroCurso
+        return "cadastroCurso"; // http://localhost:8080/cadastroCurso
     }
 
 

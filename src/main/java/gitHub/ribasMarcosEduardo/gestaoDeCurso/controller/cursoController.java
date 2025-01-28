@@ -19,9 +19,9 @@ public class cursoController{
 
     @PostMapping("salvarCurso")
     public String salvarCurso(@ModelAttribute CursoDTO cursoDTO, RedirectAttributes redirectAttributes) {
-        Curso curso = CursoDTO.ma
+        Curso curso = cursoDTO.mapearCurso();
         cursoService.salvarCurso(curso);
         redirectAttributes.addFlashAttribute("mensagemSucesso", "Pessoa salva com sucesso!");
-        return "redirect:/cadastroPessoa";
+        return "redirect:/cadastroCurso";
     }
 }
