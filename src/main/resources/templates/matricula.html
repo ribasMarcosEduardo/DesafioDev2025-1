@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <meta th:if="${mensagemSucesso}" http-equiv="refresh" content="3">
+    <meta th:if="${matriculaSucess}" http-equiv="refresh" content="3">
     <meta th:if="${CursoNaoencontrado}" http-equiv="refresh" content="3">
     <meta th:if="${CursoInativo}" http-equiv="refresh" content="3">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -31,13 +31,10 @@
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
-                    <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                        Dropdown
-                    </button>
+                    <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Curso</button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        <li><a class="dropdown-item" href="http://localhost:8080/matricula">Matricular Estudante</a>
+                        </li>
                     </ul>
                 </li>
             </ul>

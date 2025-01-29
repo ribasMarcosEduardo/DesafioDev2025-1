@@ -23,15 +23,9 @@ public class enderecoController{
 
     @PostMapping("salvarEndereco")
     public String salvarEndereco(@ModelAttribute EnderecoDTO enderecoDTO, RedirectAttributes redirectAttributes) {
-        try {
-            PessoaEndereco endereco = enderecoDTO.mapearEndereco();  // Mapeia e salva o endereço
-            enderecoService.salvarEndereco(endereco);
-            redirectAttributes.addFlashAttribute("mensagemSucesso", "Endereço salvo com sucesso!");
-        } catch (PessoaNaoEncontradaException e) {
-            redirectAttributes.addFlashAttribute("PessoaNaoEncontradaE", e.getMessage());
-        } catch (EnderecoJaCadastradoException e) {
-            redirectAttributes.addFlashAttribute("mensagemErroJaCadastrado", e.getMessage());
-        }
+        PessoaEndereco endereco = enderecoDTO.mapearEndereco();  // Mapeia e salva o endereço
+        enderecoService.salvarEndereco(endereco);
+        redirectAttributes.addFlashAttribute("mensagemSucesso", "Endereço salvo com sucesso!");
         return "redirect:/cadastroEndereco";  // Redireciona de volta para a mesma página
     }
 

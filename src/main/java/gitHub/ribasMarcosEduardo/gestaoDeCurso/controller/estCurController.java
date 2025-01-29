@@ -22,19 +22,10 @@ public class estCurController {
     // Matricula de Estudante:
 
     @PostMapping("matricularEstudante")
-    public String matricularEstudante(@ModelAttribute EstCursoDTO estCursoDTO, RedirectAttributes redirectAttributes){
-       try {
-           EstudanteCurso estudanteCurso = estCursoDTO.estCurMapear();
-           estCursoService.matricularAluno(estudanteCurso);
-           redirectAttributes.addFlashAttribute("matriculaSucess", "Matrícula finalizada!!");
-
-       }catch (CursoInativo e){
-           redirectAttributes.addFlashAttribute("CursoInativo", e.getMessage());
-       }
-       catch (CursoNaoencontrado e){
-           redirectAttributes.addFlashAttribute("CursoNaoencontrado", e.getMessage());
-       }
+    public String matricularEstudante(@ModelAttribute EstCursoDTO estCursoDTO, RedirectAttributes redirectAttributes) {
+        EstudanteCurso estudanteCurso = estCursoDTO.estCurMapear();
+        estCursoService.matricularAluno(estudanteCurso);
+        redirectAttributes.addFlashAttribute("matriculaSucess", "Matrícula finalizada!!");
         return "redirect:/matricula";
     }
-
 }
