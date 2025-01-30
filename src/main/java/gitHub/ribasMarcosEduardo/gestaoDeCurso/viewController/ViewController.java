@@ -1,9 +1,6 @@
 package gitHub.ribasMarcosEduardo.gestaoDeCurso.viewController;
 
-import gitHub.ribasMarcosEduardo.gestaoDeCurso.controller.DTO.CursoDTO;
-import gitHub.ribasMarcosEduardo.gestaoDeCurso.controller.DTO.EnderecoDTO;
-import gitHub.ribasMarcosEduardo.gestaoDeCurso.controller.DTO.EstCursoDTO;
-import gitHub.ribasMarcosEduardo.gestaoDeCurso.controller.DTO.PessoaDTO;
+import gitHub.ribasMarcosEduardo.gestaoDeCurso.controller.DTO.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,6 +35,12 @@ public class ViewController {
     public String matricula(Model model){
         model.addAttribute("estCursoDTO", new EstCursoDTO());
         return "matricula"; // http://localhost:8080/matricula
+    }
+
+    @GetMapping("profOferta")
+    public String profOferta(Model model){
+        model.addAttribute("profCurDTO", new ProfCurDTO());
+        return "profOferta"; // http://localhost:8080/profOferta
     }
 
 

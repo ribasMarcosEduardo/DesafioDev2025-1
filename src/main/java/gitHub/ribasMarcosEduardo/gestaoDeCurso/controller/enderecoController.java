@@ -2,11 +2,8 @@ package gitHub.ribasMarcosEduardo.gestaoDeCurso.controller;
 
 
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.controller.DTO.EnderecoDTO;
-import gitHub.ribasMarcosEduardo.gestaoDeCurso.entity.Pessoa;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.entity.PessoaEndereco;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.service.EnderecoService;
-import gitHub.ribasMarcosEduardo.gestaoDeCurso.service.exeption.EnderecoJaCadastradoException;
-import gitHub.ribasMarcosEduardo.gestaoDeCurso.service.exeption.PessoaNaoEncontradaException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;

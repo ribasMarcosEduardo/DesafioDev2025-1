@@ -3,8 +3,6 @@ package gitHub.ribasMarcosEduardo.gestaoDeCurso.controller;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.controller.DTO.EstCursoDTO;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.entity.EstudanteCurso;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.service.EstCursoService;
-import gitHub.ribasMarcosEduardo.gestaoDeCurso.service.exeption.CursoInativo;
-import gitHub.ribasMarcosEduardo.gestaoDeCurso.service.exeption.CursoNaoencontrado;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;

@@ -14,6 +14,7 @@ public class EstCursoService {
     private final Validator validator;
 
     public EstudanteCurso matricularAluno(EstudanteCurso estudanteCurso){
+        validator.validarPessoa(estudanteCurso.getEstudante());
         validator.validarCurso(estudanteCurso.getCurso());
         return estudanteCurRepository.save(estudanteCurso);
     }

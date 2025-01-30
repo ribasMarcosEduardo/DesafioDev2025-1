@@ -1,4 +1,4 @@
-package gitHub.ribasMarcosEduardo.gestaoDeCurso.service.exeption;
+package gitHub.ribasMarcosEduardo.gestaoDeCurso.validator.exeption;
 
 public class CursoNaoencontrado extends RuntimeException {
     public CursoNaoencontrado(String message) {
