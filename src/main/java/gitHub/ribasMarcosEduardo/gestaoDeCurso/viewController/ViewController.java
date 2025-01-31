@@ -4,6 +4,7 @@ import gitHub.ribasMarcosEduardo.gestaoDeCurso.controller.DTO.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 @Controller
 public class ViewController {
@@ -15,7 +16,7 @@ public class ViewController {
 
     @GetMapping("cadastroPessoa")
     public String cadastroPessoa(Model model){
-        model.addAttribute("pessoaDTO", new PessoaDTO());
+        model.addAttribute("pessoaDTO", new PessoaDTO(0,null,null,null,null,null,null,false));
         return "cadastroPessoa"; // http://localhost:8080/cadastroPessoa
     }
 
@@ -42,6 +43,21 @@ public class ViewController {
         model.addAttribute("profCurDTO", new ProfCurDTO());
         return "profOferta"; // http://localhost:8080/profOferta
     }
+
+    @GetMapping("buscarPessoa")
+    public String buscarPessoa() {
+        return "buscarPessoa"; // http://localhost:8080/buscarPessoa
+    }
+
+    @GetMapping("editPessoa")
+    public String editPessoa(@ModelAttribute("pessoaDTO") PessoaDTO pessoaDTO, Model model) {
+        if (pessoaDTO.nome() == null) {
+            return "redirect:/buscarPessoa";
+        }
+        model.addAttribute("pessoaDTO", pessoaDTO);
+        return "editPessoa"; // http://localhost:8080/editPessoa
+    }
+
 
 
 }

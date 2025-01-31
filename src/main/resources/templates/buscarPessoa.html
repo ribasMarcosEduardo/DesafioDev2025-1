@@ -47,62 +47,20 @@
 </div>
 
 <div class="div-borda">
-    <h3 class="titulo">Cadastro de Pessoa:</h3>
+    <h3 class="titulo">Buscar Pessoa:</h3>
 
-    <form class="form-container" th:action="@{pessoa/salvarPessoa}" th:object="${pessoaDTO}" method="post">
-        <input type="hidden" th:field="*{id}">
+    <form class="form-container" th:action="@{/pessoa/buscar}" th:object="${pessoaDTO}" method="get">
         <div class="row">
             <div class="col">
-                <label class="form-label">Nome:</label>
-                <input type="text" class="form-control " th:field="*{nome}"  required>
-            </div>
-
-            <div class="col">
-                <label class="form-label">CPF:</label>
-                <input type="text" class="form-control" th:field="*{cpf}"  required>
+                <label class="form-label" for="nome">Nome:</label>
+                <input class="form-control" type="text" id="nome" name="nome" required />
             </div>
         </div>
 
         <div class="row">
             <div class="col">
-                <label class="form-label">Telefone:</label>
-                <input type="text" class="form-control" th:field="*{telefone}" required>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col">
-                <label  class="form-label">Email:</label>
-                <input type="email" class="form-control" th:field="*{email}"  required>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col">
-                <label th:for="*{usuario}" class="form-label">Usuário:</label>
-                <input type="text" class="form-control" th:field="*{usuario}" id="usuario" required>
-            </div>
-
-            <div class="col">
-                <label th:for="*{senha}" class="form-label">Senha:</label>
-                <input type="password" class="form-control" th:field="*{senha}" id="senha">
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col">
-                <div class="form-check form-switch">
-                    <label th:for="*{ativo}" class="form-check-label ">Ativo</label>
-                    <input class="form-check-input" type="checkbox" th:field="*{ativo}" id="ativo" value="true">
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col">
-                <button type="submit" class="btn btn-success">Save</button>
-                <a th:href="@{/menuPrincipal}" class="btn btn-danger">Cancel</a>
-                <a style="float: right;" th:href="@{/buscarPessoa}" class="btn btn-primary">Editar</a>
+                <button type="submit" class="btn btn-secondary">Buscar</button>
+                <a th:href="@{/cadastroPessoa}" class="btn btn-danger">Cancelar</a>
             </div>
         </div>
     </form>

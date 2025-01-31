@@ -1,5 +1,6 @@
 package gitHub.ribasMarcosEduardo.gestaoDeCurso.entity;
 
+import gitHub.ribasMarcosEduardo.gestaoDeCurso.controller.DTO.PessoaDTO;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -35,5 +36,6 @@ public class Pessoa{
 
     @Column(name = "SENHA", nullable = false)
     private String senha;
+
 
 }
