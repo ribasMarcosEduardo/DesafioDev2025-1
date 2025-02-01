@@ -16,10 +16,12 @@ public class PessoaUserDetailsService implements UserDetailsService {
         this.pessoaRepository = pessoaRepository;
     }
 
+
     @Override
     public UserDetails loadUserByUsername(String usuario) throws UsernameNotFoundException {
-        Pessoa pessoa = pessoaRepository.findByUsuario(usuario)
-                .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado"));
-        return new PessoaUserDetails(pessoa);
+        return pessoaRepository.findByUsernameIgnoreCase(usuario)
+                .map(PessoaUserDetails::new)
+                .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado: " + usuario));
     }
 }
+

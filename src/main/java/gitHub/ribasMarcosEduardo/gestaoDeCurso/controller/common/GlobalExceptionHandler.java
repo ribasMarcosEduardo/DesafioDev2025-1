@@ -2,8 +2,11 @@ package gitHub.ribasMarcosEduardo.gestaoDeCurso.controller.common;
 
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.validator.exeption.*;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @ControllerAdvice
@@ -48,5 +51,15 @@ public class GlobalExceptionHandler {
     public String handleProfessorDuplicado(ProfessorDuplicado e, RedirectAttributes redirectAttributes){
         redirectAttributes.addFlashAttribute("ProfessorDuplicado", e.getMessage());
         return "redirect:/profOferta";
+    }
+
+    @ModelAttribute("username") // Adiciona o atributo "username" ao modelo
+    public String getUsername() {
+        // Obtém o nome do usuário autenticado
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated()) {
+            return authentication.getName(); // Retorna o nome do usuário
+        }
+        return null; // Retorna null se o usuário não estiver autenticado
     }
 }

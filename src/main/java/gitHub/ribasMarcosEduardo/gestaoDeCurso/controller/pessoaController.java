@@ -3,7 +3,6 @@ package gitHub.ribasMarcosEduardo.gestaoDeCurso.controller;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.controller.DTO.PessoaDTO;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.entity.Pessoa;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.service.PessoaService;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

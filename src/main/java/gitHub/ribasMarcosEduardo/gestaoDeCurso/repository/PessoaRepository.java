@@ -3,6 +3,8 @@ package gitHub.ribasMarcosEduardo.gestaoDeCurso.repository;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.entity.Pessoa;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.entity.PessoaEndereco;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -12,7 +14,10 @@ import java.util.Optional;
 public interface PessoaRepository extends JpaRepository<Pessoa, Integer> {
 
     Optional<Pessoa> findByNome(String nome);
-    Optional<Pessoa> findByUsuario(String usuario);
+    //Optional<Pessoa> findByUsuario(String usuario);
+
+    @Query("SELECT p FROM Pessoa p WHERE LOWER(p.usuario) = LOWER(:usuario)")
+    Optional<Pessoa> findByUsernameIgnoreCase(@Param("usuario") String usuario);
 
 }
 

@@ -61,4 +61,5 @@ public class PessoaUserDetails implements UserDetails {
                 ", ativo=" + pessoa.isAtivo() +
                 '}';
     }
+
 }
