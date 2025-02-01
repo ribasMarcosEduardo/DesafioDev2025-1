@@ -1,8 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-    preencherDados(); // Chama a função automaticamente ao carregar a página
-});
-
-function preencherDados() {
     fetch("https://randomuser.me/api/")
         .then(response => response.json())
         .then(data => {
@@ -24,17 +20,4 @@ function preencherDados() {
             document.querySelector("input[name='telefone']").value = telefone;
         })
         .catch(error => console.error("Erro ao buscar dados da API:", error));
-}
-
-// minúsculo
-
-
-    document.getElementById('usuario').addEventListener('input', function() {
-        this.value = this.value.toLowerCase();
-    });
-
-
-
-
-
-
+});

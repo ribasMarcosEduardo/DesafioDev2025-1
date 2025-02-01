@@ -20,19 +20,21 @@ public class PessoaService {
 
     public Pessoa salvarPessoa(Pessoa pessoa) {
         validator.usuarioDuplicado(pessoa);
+        pessoa.setCpf(pessoa.getCpf().replaceAll("\\D", ""));
         return repository.save(pessoa);
     }
 
     public Pessoa buscarPessoaPorNome(String nome) {
         return repository.findByNome(nome)
-                .orElseThrow(() -> new RuntimeException("Pessoa não encontrada"));
+                .orElseThrow(() -> new PessoaNaoEncontradaException("Pessoa não encontrada"));
     }
 
     public Pessoa atualizarPessoa(Pessoa pessoa) {
         Pessoa pessoaExistente = repository.findById(pessoa.getId()).get();
+        pessoaExistente.setCpf(pessoa.getCpf().replaceAll("\\D", ""));
+        validator.cpfExistEdit(pessoaExistente);
 
         pessoaExistente.setNome(pessoa.getNome());
-        pessoaExistente.setCpf(pessoa.getCpf());
         pessoaExistente.setEmail(pessoa.getEmail());
         pessoaExistente.setTelefone(pessoa.getTelefone());
         pessoaExistente.setUsuario(pessoa.getUsuario());
@@ -41,6 +43,8 @@ public class PessoaService {
 
         return repository.save(pessoaExistente);
     }
+
+
 
 
 

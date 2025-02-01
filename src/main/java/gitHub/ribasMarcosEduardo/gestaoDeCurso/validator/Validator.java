@@ -65,8 +65,6 @@ public class Validator {
         if (ofertaExistente.isPresent()) {
             throw new ProfessorDuplicado("Essa oferta já tem um professor vinculado!");
         }
-
-
     }
 
     //------------------------------------------------------------------------------------------------------------------
@@ -80,15 +78,42 @@ public class Validator {
         }
     }
 
-    // Validação de Usuário duplicado
+    // Validação de Cadastro duplicado
 
     public void usuarioDuplicado(Pessoa pessoa){
-        Optional<Pessoa> pessoaExisstente = pessoaRepository.findByUsuario(pessoa.getUsuario());
-            if(pessoaExisstente.isPresent()){
-                throw new UsuarioDuplicado("Já escolheram esse nome!");
-            }
+        Optional<Pessoa> usuarioExistente = pessoaRepository.findByUsuario(pessoa.getUsuario());
+        if(usuarioExistente.isPresent()){
+            throw new UsuarioDuplicado("Já escolheram esse nome!");
+        }
+
+        String cpfNormalizado = pessoa.getCpf().replaceAll("\\D", "");
+        Optional<Pessoa> cpfExistente = pessoaRepository.findByCpf(cpfNormalizado);
+        if (cpfExistente.isPresent()) {
+            throw new CpfJaCadastrado("Usuário já cadastrado");
         }
     }
+
+    // Validação tela de busca e edição
+
+    public void cpfExistEdit(Pessoa pessoa){
+        String cpfNormalizado = pessoa.getCpf().replaceAll("\\D", "");
+        Optional<Pessoa> cpfExistente = pessoaRepository.findByCpf(cpfNormalizado);
+        if (cpfExistente.isPresent()) {
+            throw new CpfJaCadastrado("CPF já existente");
+        }
+    }
+
+    public void buscarNome(Pessoa pesso){
+        Optional<Pessoa> existente = pessoaRepository.findByNome(pesso.getNome());
+        if (!existente.isPresent()){
+            throw new PessoaNaoEncontradaException("Pessoa não encontrada.");
+        }
+    }
+
+
+    }
+
+
 
 
 

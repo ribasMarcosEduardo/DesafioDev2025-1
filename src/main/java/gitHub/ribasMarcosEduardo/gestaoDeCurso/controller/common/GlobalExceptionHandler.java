@@ -36,6 +36,12 @@ public class GlobalExceptionHandler {
         return getRedirectUrl(request);
     }
 
+    @ExceptionHandler(CpfJaCadastrado.class)
+    public String andleCpfJaCadastrado(CpfJaCadastrado e,RedirectAttributes redirectAttributes, HttpServletRequest request){
+        redirectAttributes.addFlashAttribute("cpfJaCadastrado", e.getMessage());
+        return getRedirectUrl(request);
+    }
+
     private String getRedirectUrl(HttpServletRequest request) {
         String referer = request.getHeader("Referer");
         return "redirect:" + (referer != null ? referer : "/matricula");
@@ -63,6 +69,16 @@ public class GlobalExceptionHandler {
     public String handleUsuarioDuplicado(UsuarioDuplicado e, RedirectAttributes redirectAttributes){
         redirectAttributes.addFlashAttribute("usuarioDuplicado",e.getMessage());
         return "redirect:/cadastroPessoa";
+    }
+
+
+    @ModelAttribute("username") // Adiciona o atributo "username" ao modelo
+    public String getUsername() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated()) {
+            return authentication.getName(); // Retorna o nome do usuário
+        }
+        return null; // Retorna null se o usuário não estiver autenticado
     }
 
 

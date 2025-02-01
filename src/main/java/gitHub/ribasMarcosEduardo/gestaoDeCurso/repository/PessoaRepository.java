@@ -15,6 +15,7 @@ public interface PessoaRepository extends JpaRepository<Pessoa, Integer> {
 
     Optional<Pessoa> findByNome(String nome);
     Optional<Pessoa> findByUsuario(String usuario);
+    Optional<Pessoa> findByCpf(String cpf);
 
     @Query("SELECT p FROM Pessoa p WHERE LOWER(p.usuario) = LOWER(:usuario)")
     Optional<Pessoa> findByUsernameIgnoreCase(@Param("usuario") String usuario);

@@ -43,6 +43,9 @@
     <div style=" text-align: center; line-height: 50px;" th:if="${mensagemSucesso}" id="success-alert" class="alert alert-success">
         <p th:text="${mensagemSucesso}"></p>
     </div>
+    <div th:if="${PessoaNaoEncontradaE}" id="error-alert" class="alert alert-danger">
+        <p th:text="${PessoaNaoEncontradaE}"></p>
+    </div>
 </div>
 
 <div class="div-borda">
