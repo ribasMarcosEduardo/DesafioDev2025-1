@@ -16,8 +16,6 @@ import java.util.Optional;
 public class Validator {
 
     private final EnderecoRepository enderecoRepository;
-    private final PessoaRepository pessoaRepository;
-    private final CursoRepository cursoRepository;
     private final ProfessorRepository professorRepository;
 
     // Validação de Endereço

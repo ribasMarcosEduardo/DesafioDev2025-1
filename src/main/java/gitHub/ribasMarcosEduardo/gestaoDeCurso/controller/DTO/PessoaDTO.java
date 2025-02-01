@@ -3,7 +3,7 @@ package gitHub.ribasMarcosEduardo.gestaoDeCurso.controller.DTO;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.entity.Pessoa;
 
 public record PessoaDTO (
-        int id, // Adicionando o ID
+        int id,
         String nome,
         String cpf,
         String email,
@@ -14,7 +14,7 @@ public record PessoaDTO (
 ){
     public Pessoa mapearPessoa(){
         Pessoa pessoa = new Pessoa();
-        pessoa.setId(this.id); // Agora o ID será mapeado corretamente
+        pessoa.setId(this.id);
         pessoa.setNome(this.nome);
         pessoa.setCpf(this.cpf);
         pessoa.setEmail(this.email);
@@ -27,7 +27,7 @@ public record PessoaDTO (
 
     public static PessoaDTO capturarPessoa(Pessoa pessoa) {
         return new PessoaDTO(
-                pessoa.getId(),  // Capturando o ID
+                pessoa.getId(),
                 pessoa.getNome(),
                 pessoa.getCpf(),
                 pessoa.getEmail(),

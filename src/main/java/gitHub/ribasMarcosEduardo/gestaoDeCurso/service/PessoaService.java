@@ -39,6 +39,10 @@ public class PessoaService {
         return repository.save(pessoaExistente);
     }
 
+    public Optional<Pessoa> buscarPorUsuario(String usuario) {
+        return repository.findByUsuario(usuario);
+    }
+
 
 
 

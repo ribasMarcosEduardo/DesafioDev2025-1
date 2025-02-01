@@ -11,8 +11,7 @@ public class ViewController {
 
     @GetMapping("menuPrincipal")
     public String menuPrincipal(){
-        return "menuPrincipal";
-    }// http://localhost:8080/menuPrincipal
+        return "menuPrincipal";}// http://localhost:8080/menuPrincipal
 
     @GetMapping("cadastroPessoa")
     public String cadastroPessoa(Model model){
@@ -22,7 +21,7 @@ public class ViewController {
 
     @GetMapping("cadastroEndereco")
     public String cadastroEndereco(Model model){
-        model.addAttribute("enderecoDTO", new EnderecoDTO());
+        model.addAttribute("enderecoDTO", new EnderecoDTO(null,null,null,null,null));
         return "cadastroEndereco"; // http://localhost:8080/cadastroEndereco
     }
 
@@ -56,6 +55,11 @@ public class ViewController {
         }
         model.addAttribute("pessoaDTO", pessoaDTO);
         return "editPessoa"; // http://localhost:8080/editPessoa
+    }
+
+    @GetMapping("/login")
+    public String login() {
+        return "login";
     }
 
 

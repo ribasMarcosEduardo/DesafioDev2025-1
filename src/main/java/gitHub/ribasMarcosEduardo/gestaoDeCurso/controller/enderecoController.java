@@ -2,6 +2,7 @@ package gitHub.ribasMarcosEduardo.gestaoDeCurso.controller;
 
 
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.controller.DTO.EnderecoDTO;
+import gitHub.ribasMarcosEduardo.gestaoDeCurso.entity.Pessoa;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.entity.PessoaEndereco;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.service.EnderecoService;
 import lombok.RequiredArgsConstructor;

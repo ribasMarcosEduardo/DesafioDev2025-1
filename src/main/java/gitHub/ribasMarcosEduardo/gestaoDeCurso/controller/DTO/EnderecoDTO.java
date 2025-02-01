@@ -11,10 +11,6 @@ public record EnderecoDTO(
         Integer numero
 ) {
 
-    public EnderecoDTO() {
-        this(null,null,null,null, null);
-    }
-
     public PessoaEndereco mapearEndereco() {
         PessoaEndereco endereco = new PessoaEndereco();
         endereco.setPessoa(this.CODPESSOA);
