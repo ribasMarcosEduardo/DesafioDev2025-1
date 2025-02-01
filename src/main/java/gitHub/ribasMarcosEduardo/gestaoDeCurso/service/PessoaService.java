@@ -44,9 +44,13 @@ public class PessoaService {
         return repository.save(pessoaExistente);
     }
 
-
-
-
+    public void excluirPessoa(int id) {
+        if (repository.existsById(id)) {
+            repository.deleteById(id);
+        } else {
+            throw new EntityNotFoundException("Pessoa não encontrada.");
+        }
+    }
 
 
 

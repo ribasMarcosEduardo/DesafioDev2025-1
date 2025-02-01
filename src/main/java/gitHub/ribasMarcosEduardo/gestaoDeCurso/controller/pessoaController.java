@@ -3,7 +3,10 @@ package gitHub.ribasMarcosEduardo.gestaoDeCurso.controller;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.controller.DTO.PessoaDTO;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.entity.Pessoa;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.service.PessoaService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -43,6 +46,18 @@ public class pessoaController {
         redirectAttributes.addFlashAttribute("mensagemSucesso", "Pessoa atualizada com sucesso!");
         return "redirect:/buscarPessoa";
     }
+
+    @DeleteMapping("/excluirPessoa/{id}")
+    public String excluirPessoa(@PathVariable int id, RedirectAttributes redirectAttributes) {
+        try {
+            pessoaService.excluirPessoa(id);
+            redirectAttributes.addFlashAttribute("mensagemSucesso", "Pessoa excluída com sucesso!");
+        } catch (EntityNotFoundException e) {
+            redirectAttributes.addFlashAttribute("mensagemErro", "Pessoa não encontrada!");
+        }
+        return "redirect:/buscarPessoa";
+    }
+
 
 
 }

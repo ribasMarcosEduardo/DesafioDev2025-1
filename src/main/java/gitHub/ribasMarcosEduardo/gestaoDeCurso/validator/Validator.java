@@ -95,10 +95,10 @@ public class Validator {
 
     // Validação tela de busca e edição
 
-    public void cpfExistEdit(Pessoa pessoa){
+    public void cpfExistEdit(Pessoa pessoa) {
         String cpfNormalizado = pessoa.getCpf().replaceAll("\\D", "");
         Optional<Pessoa> cpfExistente = pessoaRepository.findByCpf(cpfNormalizado);
-        if (cpfExistente.isPresent()) {
+        if (cpfExistente.isPresent() && cpfExistente.get().getId() != pessoa.getId()) {
             throw new CpfJaCadastrado("CPF já existente");
         }
     }
@@ -109,6 +109,8 @@ public class Validator {
             throw new PessoaNaoEncontradaException("Pessoa não encontrada.");
         }
     }
+
+
 
 
     }
