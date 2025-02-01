@@ -6,6 +6,7 @@ import gitHub.ribasMarcosEduardo.gestaoDeCurso.entity.Pessoa;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.repository.CursoRepository;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.repository.EstudanteCurRepository;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.repository.PessoaRepository;
+import gitHub.ribasMarcosEduardo.gestaoDeCurso.validator.Validator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,9 +17,10 @@ import java.util.List;
 public class CursoService {
 
     private final CursoRepository repository;
-    private final PessoaRepository pessoaRepository;
+    private final Validator validator;
 
     public Curso salvarCurso(Curso curso) {
+        validator.cursoDuplicado(curso);
         return repository.save(curso);
     }
 }

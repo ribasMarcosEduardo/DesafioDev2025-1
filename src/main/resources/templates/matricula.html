@@ -47,19 +47,19 @@
 </nav> <!-- nav -->
 
 <div class="div-alert">
-    <div th:if="${matriculaSucess}" class="alert alert-success">
+    <div th:if="${matriculaSucess}" id="success-alert" class="alert alert-success">
         <p th:text="${matriculaSucess}"></p>
     </div>
-    <div th:if="${CursoInativo}" class="alert alert-danger">
+    <div th:if="${CursoInativo}" id="error-alert" class="alert alert-danger">
         <p th:text="${CursoInativo}"></p>
     </div>
-    <div th:if="${CursoNaoencontrado}" class="alert alert-danger">
+    <div th:if="${CursoNaoencontrado}" id="error-alert2" class="alert alert-danger">
         <p th:text="${CursoNaoencontrado}"></p>
     </div>
-    <div th:if="${PessoaNaoEncontradaE}" class="alert alert-danger">
+    <div th:if="${PessoaNaoEncontradaE}" id="error-alert3" class="alert alert-danger">
         <p th:text="${PessoaNaoEncontradaE}"></p>
     </div>
-    <div th:if="${PessoaInativa}" class="alert alert-danger">
+    <div th:if="${PessoaInativa}" id="error-alert4" class="alert alert-danger">
         <p th:text="${PessoaInativa}"></p>
     </div>
 </div>  <!-- Alert -->
@@ -89,6 +89,44 @@
                 <a th:href="@{/menuPrincipal}" class="btn btn-danger">Cancel</a>
             </div>
         </div>
+
+        <script>
+            setTimeout(function() {
+                var errorAlert = document.getElementById('error-alert');
+                if (errorAlert) {
+                    errorAlert.remove();
+                }
+            }, 3000);
+
+            setTimeout(function() {
+                var errorAlert2 = document.getElementById('error-alert2');
+                if (errorAlert2) {
+                    errorAlert2.remove();
+                }
+            }, 3000);
+
+            setTimeout(function() {
+                var errorAlert3 = document.getElementById('error-alert3');
+                if (errorAlert3) {
+                    errorAlert3.remove();
+                }
+            }, 3000);
+
+            setTimeout(function() {
+                var errorAlert4 = document.getElementById('error-alert4');
+                if (errorAlert4) {
+                    errorAlert4.remove();
+                }
+            }, 3000);
+
+            setTimeout(function() {
+                var successAlert = document.getElementById('success-alert');
+                if (successAlert) {
+                    successAlert.remove();
+                }
+            }, 3000);
+        </script>
+
     </form>
 
 </div>

@@ -53,13 +53,17 @@ public class GlobalExceptionHandler {
         return "redirect:/profOferta";
     }
 
-    @ModelAttribute("username") // Adiciona o atributo "username" ao modelo
-    public String getUsername() {
-        // Obtém o nome do usuário autenticado
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null && authentication.isAuthenticated()) {
-            return authentication.getName(); // Retorna o nome do usuário
-        }
-        return null; // Retorna null se o usuário não estiver autenticado
+    @ExceptionHandler(CursoDuplicado.class)
+    public String handleCursoDuplicado(CursoDuplicado e, RedirectAttributes redirectAttributes){
+        redirectAttributes.addFlashAttribute("cursoDuplicado",e.getMessage());
+        return "redirect:/cadastroCurso";
     }
+
+    @ExceptionHandler(UsuarioDuplicado.class)
+    public String handleUsuarioDuplicado(UsuarioDuplicado e, RedirectAttributes redirectAttributes){
+        redirectAttributes.addFlashAttribute("usuarioDuplicado",e.getMessage());
+        return "redirect:/cadastroPessoa";
+    }
+
+
 }

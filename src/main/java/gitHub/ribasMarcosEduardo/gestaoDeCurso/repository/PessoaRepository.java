@@ -14,7 +14,7 @@ import java.util.Optional;
 public interface PessoaRepository extends JpaRepository<Pessoa, Integer> {
 
     Optional<Pessoa> findByNome(String nome);
-    //Optional<Pessoa> findByUsuario(String usuario);
+    Optional<Pessoa> findByUsuario(String usuario);
 
     @Query("SELECT p FROM Pessoa p WHERE LOWER(p.usuario) = LOWER(:usuario)")
     Optional<Pessoa> findByUsernameIgnoreCase(@Param("usuario") String usuario);

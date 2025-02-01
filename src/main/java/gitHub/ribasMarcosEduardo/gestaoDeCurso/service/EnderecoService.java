@@ -16,6 +16,7 @@ public class EnderecoService {
 
     @Transactional
     public PessoaEndereco salvarEndereco(PessoaEndereco pessoaEndereco) {
+        validator.validarPessoa(pessoaEndereco.getPessoa()); // dar uma olhada nq deu com essa validation e finalizar testes
         validator.validarEndereco(pessoaEndereco);
         return enderecoRepository.save(pessoaEndereco);
     }

@@ -2,6 +2,7 @@ package gitHub.ribasMarcosEduardo.gestaoDeCurso.service;
 
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.entity.Pessoa;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.repository.PessoaRepository;
+import gitHub.ribasMarcosEduardo.gestaoDeCurso.validator.Validator;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.validator.exeption.PessoaNaoEncontradaException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -15,8 +16,10 @@ import java.util.Optional;
 public class PessoaService {
 
     private final PessoaRepository repository;
+    private final Validator validator;
 
     public Pessoa salvarPessoa(Pessoa pessoa) {
+        validator.usuarioDuplicado(pessoa);
         return repository.save(pessoa);
     }
 

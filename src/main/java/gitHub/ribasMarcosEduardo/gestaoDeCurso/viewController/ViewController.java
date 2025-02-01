@@ -15,7 +15,7 @@ public class ViewController {
 
     @GetMapping("cadastroPessoa")
     public String cadastroPessoa(Model model){
-        model.addAttribute("pessoaDTO", new PessoaDTO(0,null,null,null,null,null,null,false));
+        model.addAttribute("pessoaDTO", new PessoaDTO(0,null,null,null,null,null,null,true));
         return "cadastroPessoa"; // http://localhost:8080/cadastroPessoa
     }
 
