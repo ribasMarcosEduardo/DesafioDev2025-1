@@ -9,11 +9,11 @@ public class geralController {
 
 @GetMapping("/")
 public String home(Model model) {
-    // Obtém o nome do usuário autenticado
-    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    String username = authentication.getName(); // Nome do usuário
 
-    // Adiciona o nome do usuário ao modelo
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    String username = authentication.getName();
+
+
     model.addAttribute("username", username);
 
     return "menuPrincipal";

@@ -16,7 +16,7 @@ public class PessoaUserDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        // Retorna uma permissão fixa "USER". Se precisar de permissões dinâmicas
+
         return List.of(new SimpleGrantedAuthority("USER"));
     }
 
@@ -32,22 +32,22 @@ public class PessoaUserDetails implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return true; // Conta nunca expira
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return true; // Conta nunca é bloqueada
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return true; // Credenciais nunca expiram
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return pessoa.isAtivo(); // Status de ativação do usuário
+        return pessoa.isAtivo();
     }
 
     public Pessoa getPessoa() {

@@ -1,14 +1,12 @@
 package gitHub.ribasMarcosEduardo.gestaoDeCurso.validator;
 
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.entity.*;
-import gitHub.ribasMarcosEduardo.gestaoDeCurso.repository.CursoRepository;
-import gitHub.ribasMarcosEduardo.gestaoDeCurso.repository.EnderecoRepository;
-import gitHub.ribasMarcosEduardo.gestaoDeCurso.repository.PessoaRepository;
-import gitHub.ribasMarcosEduardo.gestaoDeCurso.repository.ProfessorRepository;
+import gitHub.ribasMarcosEduardo.gestaoDeCurso.repository.*;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.validator.exeption.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -19,6 +17,7 @@ public class Validator {
     private final ProfessorRepository professorRepository;
     private final CursoRepository cursoRepository;
     private final PessoaRepository pessoaRepository;
+    private final EstudanteCurRepository estudanteCurRepository;
 
     // Validação de Endereço
 
@@ -103,17 +102,24 @@ public class Validator {
         }
     }
 
-    public void buscarNome(Pessoa pesso){
-        Optional<Pessoa> existente = pessoaRepository.findByNome(pesso.getNome());
-        if (!existente.isPresent()){
-            throw new PessoaNaoEncontradaException("Pessoa não encontrada.");
+    public void verificarDependencias(Pessoa pessoa, List<Optional<Integer>> dependencias) {
+        for (Optional<Integer> dependencia : dependencias) {
+            if (dependencia.isPresent()) {
+                throw new PessoaComDependencias("Não é possível excluir, pois o usuário possui dependências.");
+            }
         }
     }
+}
 
 
 
 
-    }
+
+
+
+
+
+
 
 
 

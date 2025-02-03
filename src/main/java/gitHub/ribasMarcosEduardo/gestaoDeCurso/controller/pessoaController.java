@@ -1,7 +1,9 @@
 package gitHub.ribasMarcosEduardo.gestaoDeCurso.controller;
 
+import gitHub.ribasMarcosEduardo.gestaoDeCurso.controller.DTO.EstCursoDTO;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.controller.DTO.PessoaDTO;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.entity.Pessoa;
+import gitHub.ribasMarcosEduardo.gestaoDeCurso.repository.PessoaRepository;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.service.PessoaService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.Collections;
 import java.util.List;
 
 
@@ -21,6 +24,7 @@ import java.util.List;
 public class pessoaController {
 
     private final PessoaService pessoaService;
+    private final PessoaRepository pessoaRepository;
 
     @PostMapping("salvarPessoa")
     public String salvarPessoa(@ModelAttribute PessoaDTO pessoaDTO, RedirectAttributes redirectAttributes) {
@@ -48,15 +52,16 @@ public class pessoaController {
     }
 
     @DeleteMapping("/excluirPessoa/{id}")
-    public String excluirPessoa(@PathVariable int id, RedirectAttributes redirectAttributes) {
-        try {
-            pessoaService.excluirPessoa(id);
-            redirectAttributes.addFlashAttribute("mensagemSucesso", "Pessoa excluída com sucesso!");
-        } catch (EntityNotFoundException e) {
-            redirectAttributes.addFlashAttribute("mensagemErro", "Pessoa não encontrada!");
-        }
+    public String excluirPessoa(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
+        Pessoa pessoa = pessoaRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Pessoa não encontrada."));
+        pessoaService.excluirPessoa(pessoa);
+        redirectAttributes.addFlashAttribute("mensagemSucesso", "Pessoa excluída com sucesso!");
         return "redirect:/buscarPessoa";
     }
+
+
+
+
 
 
 

@@ -20,8 +20,6 @@ public class cursoController{
 
     private final CursoService cursoService;
 
-    // Cadastro de curso:
-
     @PostMapping("salvarCurso")
     public String salvarCurso(@ModelAttribute CursoDTO cursoDTO, RedirectAttributes redirectAttributes) {
         Curso curso = cursoDTO.mapearCurso();

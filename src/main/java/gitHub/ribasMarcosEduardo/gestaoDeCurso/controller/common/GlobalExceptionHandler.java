@@ -71,14 +71,20 @@ public class GlobalExceptionHandler {
         return "redirect:/cadastroPessoa";
     }
 
+    @ExceptionHandler(PessoaComDependencias.class)
+    public String handlePessoaComDependencias(PessoaComDependencias e, RedirectAttributes redirectAttributes){
+        redirectAttributes.addFlashAttribute("pessoaComDependencias",e.getMessage());
+        return "redirect:/buscarPessoa";
+    }
 
-    @ModelAttribute("username") // Adiciona o atributo "username" ao modelo
+
+    @ModelAttribute("username")
     public String getUsername() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.isAuthenticated()) {
-            return authentication.getName(); // Retorna o nome do usuário
+            return authentication.getName();
         }
-        return null; // Retorna null se o usuário não estiver autenticado
+        return null;
     }
 
 

@@ -8,7 +8,7 @@ document.getElementById("btnExcluir").addEventListener("click", function () {
         .then(response => {
             if (response.ok) {
                 alert("Pessoa excluída com sucesso!");
-                window.location.href = "/cadastroPessoa"; // Redireciona após excluir
+                window.location.href = "/cadastroPessoa";
             } else {
                 alert("Erro ao excluir pessoa.");
             }

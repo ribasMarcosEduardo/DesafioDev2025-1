@@ -3,7 +3,7 @@ package gitHub.ribasMarcosEduardo.gestaoDeCurso.controller.DTO;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.entity.Pessoa;
 
 public record PessoaDTO (
-        int id,
+        Integer id,
         String nome,
         String cpf,
         String email,

@@ -21,10 +21,10 @@ public class enderecoController{
 
     @PostMapping("salvarEndereco")
     public String salvarEndereco(@ModelAttribute EnderecoDTO enderecoDTO, RedirectAttributes redirectAttributes) {
-        PessoaEndereco endereco = enderecoDTO.mapearEndereco();  // Mapeia e salva o endereço
+        PessoaEndereco endereco = enderecoDTO.mapearEndereco();
         enderecoService.salvarEndereco(endereco);
         redirectAttributes.addFlashAttribute("mensagemSucesso", "Endereço salvo com sucesso!");
-        return "redirect:/cadastroEndereco";  // Redireciona de volta para a mesma página
+        return "redirect:/cadastroEndereco";
     }
 
 }

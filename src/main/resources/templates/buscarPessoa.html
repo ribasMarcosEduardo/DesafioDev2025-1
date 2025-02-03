@@ -46,6 +46,9 @@
     <div th:if="${PessoaNaoEncontradaE}" id="error-alert" class="alert alert-danger">
         <p th:text="${PessoaNaoEncontradaE}"></p>
     </div>
+    <div th:if="${pessoaComDependencias}" id="error-alert2" class="alert alert-danger">
+        <p th:text="${pessoaComDependencias}"></p>
+    </div>
 </div>
 
 <div class="div-borda">
@@ -72,6 +75,12 @@
             var errorAlert = document.getElementById('error-alert');
             if (errorAlert) {
                 errorAlert.remove();
+            }
+        }, 3000);
+         setTimeout(function() {
+            var errorAlert2 = document.getElementById('error-alert2');
+            if (errorAlert2) {
+                errorAlert2.remove();
             }
         }, 3000);
 

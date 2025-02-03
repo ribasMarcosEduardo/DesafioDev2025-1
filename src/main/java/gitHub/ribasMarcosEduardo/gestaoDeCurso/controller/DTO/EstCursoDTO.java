@@ -6,7 +6,7 @@ import gitHub.ribasMarcosEduardo.gestaoDeCurso.entity.Pessoa;
 
 public record EstCursoDTO (
         Pessoa CODPESSOA,
-       Curso CODCURSO
+        Curso CODCURSO
 ){
 
     public EstCursoDTO(){

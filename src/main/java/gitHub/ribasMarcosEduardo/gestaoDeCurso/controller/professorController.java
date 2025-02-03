@@ -18,8 +18,6 @@ public class professorController {
 
     private final ProfessorService professorService;
 
-    // Adicionar professor na oferta:
-
     @PostMapping("adicionarProfessor")
     public String adicionarProfessor(@ModelAttribute ProfCurDTO profCurDTO, RedirectAttributes redirectAttributes) {
         ProfessorCurso professor = profCurDTO.mapearProfessor();

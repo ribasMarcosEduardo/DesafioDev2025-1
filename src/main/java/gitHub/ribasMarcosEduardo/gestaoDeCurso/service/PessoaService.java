@@ -1,13 +1,17 @@
 package gitHub.ribasMarcosEduardo.gestaoDeCurso.service;
 
+import gitHub.ribasMarcosEduardo.gestaoDeCurso.controller.DTO.EstCursoDTO;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.entity.Pessoa;
+import gitHub.ribasMarcosEduardo.gestaoDeCurso.repository.EstudanteCurRepository;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.repository.PessoaRepository;
+import gitHub.ribasMarcosEduardo.gestaoDeCurso.repository.ProfessorRepository;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.validator.Validator;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.validator.exeption.PessoaNaoEncontradaException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,6 +21,8 @@ public class PessoaService {
 
     private final PessoaRepository repository;
     private final Validator validator;
+    private final ProfessorRepository professorRepository;
+    private final EstudanteCurRepository estudanteCurRepository;
 
     public Pessoa salvarPessoa(Pessoa pessoa) {
         validator.usuarioDuplicado(pessoa);
@@ -44,13 +50,18 @@ public class PessoaService {
         return repository.save(pessoaExistente);
     }
 
-    public void excluirPessoa(int id) {
-        if (repository.existsById(id)) {
-            repository.deleteById(id);
-        } else {
-            throw new EntityNotFoundException("Pessoa não encontrada.");
+    public void excluirPessoa(Pessoa pessoa) {
+        List<Optional<Integer>> dependencias = Arrays.asList(
+                professorRepository.findCodPessoaById(pessoa.getId()),
+                estudanteCurRepository.findCodPessoaById(pessoa.getId())
+        );
+
+        validator.verificarDependencias(pessoa, dependencias);
+        if (repository.existsById(pessoa.getId())){
+            repository.deleteById(pessoa.getId());
         }
     }
+
 
 
 

@@ -1,5 +1,6 @@
 package gitHub.ribasMarcosEduardo.gestaoDeCurso.repository;
 
+import gitHub.ribasMarcosEduardo.gestaoDeCurso.controller.DTO.EstCursoDTO;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.entity.Pessoa;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.entity.PessoaEndereco;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -21,7 +22,6 @@ public interface PessoaRepository extends JpaRepository<Pessoa, Integer> {
 
     @Query("SELECT p FROM Pessoa p WHERE LOWER(p.usuario) = LOWER(:usuario)")
     Optional<Pessoa> findByUsernameIgnoreCase(@Param("usuario") String usuario);
-
 
 }
 

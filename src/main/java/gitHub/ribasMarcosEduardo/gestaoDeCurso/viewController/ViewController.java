@@ -1,13 +1,25 @@
 package gitHub.ribasMarcosEduardo.gestaoDeCurso.viewController;
 
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.controller.DTO.*;
+import gitHub.ribasMarcosEduardo.gestaoDeCurso.entity.Pessoa;
+import gitHub.ribasMarcosEduardo.gestaoDeCurso.repository.PessoaRepository;
+import gitHub.ribasMarcosEduardo.gestaoDeCurso.service.EstCursoService;
+import gitHub.ribasMarcosEduardo.gestaoDeCurso.service.PessoaService;
+import gitHub.ribasMarcosEduardo.gestaoDeCurso.validator.exeption.PessoaNaoEncontradaException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
+@RequiredArgsConstructor
 @Controller
 public class ViewController {
+
+    private final PessoaRepository pessoaRepository;
 
     @GetMapping("menuPrincipal")
     public String menuPrincipal(){
@@ -33,7 +45,7 @@ public class ViewController {
 
     @GetMapping("matricula")
     public String matricula(Model model){
-        model.addAttribute("estCursoDTO", new EstCursoDTO());
+        model.addAttribute("estCursoDTO", new EstCursoDTO(null,null));
         return "matricula"; // http://localhost:8080/matricula
     }
 
@@ -49,19 +61,23 @@ public class ViewController {
     }
 
     @GetMapping("editPessoa")
-    public String editPessoa(@ModelAttribute("pessoaDTO") PessoaDTO pessoaDTO, Model model) {
-        if (pessoaDTO.nome() == null) {
+    public String editPessoa(@RequestParam(value = "id", required = false) Integer id, Model model) {
+        if (id == null) {
             return "redirect:/buscarPessoa";
         }
+        Pessoa pessoa = pessoaRepository.findById(id).orElse(null);
+        PessoaDTO pessoaDTO = PessoaDTO.capturarPessoa(pessoa);
         model.addAttribute("pessoaDTO", pessoaDTO);
-        return "editPessoa"; // http://localhost:8080/editPessoa
+
+        return "editPessoa";
     }
 
-    @GetMapping("/login")
+    @GetMapping("login")
     public String login() {
         return "login";
     }
 
 
-
 }
+
+
