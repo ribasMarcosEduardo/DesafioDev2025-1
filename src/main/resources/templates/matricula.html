@@ -87,40 +87,7 @@
         </div>
 
         <script>
-            setTimeout(function() {
-                var errorAlert = document.getElementById('error-alert');
-                if (errorAlert) {
-                    errorAlert.remove();
-                }
-            }, 3000);
-
-            setTimeout(function() {
-                var errorAlert2 = document.getElementById('error-alert2');
-                if (errorAlert2) {
-                    errorAlert2.remove();
-                }
-            }, 3000);
-
-            setTimeout(function() {
-                var errorAlert3 = document.getElementById('error-alert3');
-                if (errorAlert3) {
-                    errorAlert3.remove();
-                }
-            }, 3000);
-
-            setTimeout(function() {
-                var errorAlert4 = document.getElementById('error-alert4');
-                if (errorAlert4) {
-                    errorAlert4.remove();
-                }
-            }, 3000);
-
-            setTimeout(function() {
-                var successAlert = document.getElementById('success-alert');
-                if (successAlert) {
-                    successAlert.remove();
-                }
-            }, 3000);
+            setTimeout(() => document.querySelectorAll('.alert').forEach(alert => alert.remove()), 3000);
         </script>
 
     </form>

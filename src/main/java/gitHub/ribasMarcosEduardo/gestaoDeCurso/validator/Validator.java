@@ -70,13 +70,12 @@ public class Validator {
 
     // Valdação de curso duplicado
 
-    public void cursoDuplicado(Curso curso){
+    public void cursoDuplicado(Curso curso) {
         Optional<Curso> cursoExistente = cursoRepository.findByNome(curso.getNome());
-        if(cursoExistente.isPresent()){
+        if (cursoExistente.isPresent() && !cursoExistente.get().getId().equals(curso.getId())) {
             throw new CursoDuplicado("Já existe um curso com o mesmo nome");
         }
     }
-
     // Validação de Cadastro duplicado
 
     public void usuarioDuplicado(Pessoa pessoa){
@@ -91,6 +90,8 @@ public class Validator {
             throw new CpfJaCadastrado("Usuário já cadastrado");
         }
     }
+
+    //------------------------------------------------------------------------------------------------------------------
 
     // Validação tela de busca e edição
 
@@ -109,6 +110,8 @@ public class Validator {
             }
         }
     }
+
+    //
 }
 
 

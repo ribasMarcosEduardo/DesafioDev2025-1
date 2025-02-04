@@ -40,10 +40,10 @@
 </nav> <!-- nav -->
 
 <div class="div-alert">
-    <div th:if="${mensagemSucesso}" id="success-alert" class="alert alert-success">
+    <div th:if="${mensagemSucesso}" class="alert alert-success">
         <p th:text="${mensagemSucesso}"></p>
     </div>
-    <div th:if="${cursoDuplicado}" id="=error-alert" class="alert alert-danger">
+    <div th:if="${cursoDuplicado}" class="alert alert-danger">
         <p th:text="${cursoDuplicado}"></p>
     </div>
 </div><!-- Alert -->
@@ -51,7 +51,8 @@
 <div class="div-borda">
     <h3 class="titulo">Cadastro de Curso:</h3>
 
-    <form class="form-container" th:action="@{curso/salvarCurso}" th:object="${cursoDTO}" method="post">
+    <form class="form-container" th:action="@{/curso/salvarCurso}" th:object="${cursoDTO}" method="post">
+        <input type="hidden" th:field="*{id}">
         <div style="margin: 1px"  class="row">
             <div class="col">
                 <label class="form-label">Nome:</label>
@@ -82,6 +83,7 @@
                 <div class="col">
                     <button type="submit" class="btn btn-success">Save</button>
                     <a th:href="@{/menuPrincipal}" class="btn btn-danger">Cancel</a>
+                    <a style="float: right;" th:href="@{/buscarCurso}" class="btn btn-primary">Editar</a>
                 </div>
             </div>
 
@@ -89,19 +91,7 @@
     </form>
 
     <script>
-        setTimeout(function() {
-            var errorAlert = document.getElementById('error-alert');
-            if (errorAlert) {
-                errorAlert.remove();
-            }
-        }, 3000);
-
-        setTimeout(function() {
-            var successAlert = document.getElementById('success-alert');
-            if (successAlert) {
-                successAlert.remove();
-            }
-        }, 3000);
+        setTimeout(() => document.querySelectorAll('.alert').forEach(alert => alert.remove()), 3000);
     </script>
 
 </div>

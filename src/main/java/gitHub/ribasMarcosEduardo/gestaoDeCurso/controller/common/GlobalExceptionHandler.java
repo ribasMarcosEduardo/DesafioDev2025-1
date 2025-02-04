@@ -36,6 +36,14 @@ public class GlobalExceptionHandler {
         return getRedirectUrl(request);
     }
 
+    @ExceptionHandler(CursoDuplicado.class)
+    public String handleCursoDuplicado(CursoDuplicado e, RedirectAttributes redirectAttributes, HttpServletRequest request){
+        redirectAttributes.addFlashAttribute("cursoDuplicado",e.getMessage());
+        return getRedirectUrl(request);
+    }
+
+
+
     @ExceptionHandler(CpfJaCadastrado.class)
     public String andleCpfJaCadastrado(CpfJaCadastrado e,RedirectAttributes redirectAttributes, HttpServletRequest request){
         redirectAttributes.addFlashAttribute("cpfJaCadastrado", e.getMessage());
@@ -57,12 +65,6 @@ public class GlobalExceptionHandler {
     public String handleProfessorDuplicado(ProfessorDuplicado e, RedirectAttributes redirectAttributes){
         redirectAttributes.addFlashAttribute("ProfessorDuplicado", e.getMessage());
         return "redirect:/profOferta";
-    }
-
-    @ExceptionHandler(CursoDuplicado.class)
-    public String handleCursoDuplicado(CursoDuplicado e, RedirectAttributes redirectAttributes){
-        redirectAttributes.addFlashAttribute("cursoDuplicado",e.getMessage());
-        return "redirect:/cadastroCurso";
     }
 
     @ExceptionHandler(UsuarioDuplicado.class)

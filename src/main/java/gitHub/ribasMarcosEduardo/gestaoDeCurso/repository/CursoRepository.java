@@ -1,6 +1,7 @@
 package gitHub.ribasMarcosEduardo.gestaoDeCurso.repository;
 
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.entity.Curso;
+import gitHub.ribasMarcosEduardo.gestaoDeCurso.entity.Pessoa;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

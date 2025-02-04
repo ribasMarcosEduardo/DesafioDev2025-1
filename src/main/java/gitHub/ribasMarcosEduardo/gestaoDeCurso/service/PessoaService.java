@@ -36,18 +36,17 @@ public class PessoaService {
     }
 
     public Pessoa atualizarPessoa(Pessoa pessoa) {
-        Pessoa pessoaExistente = repository.findById(pessoa.getId()).get();
-        pessoaExistente.setCpf(pessoa.getCpf().replaceAll("\\D", ""));
-        validator.cpfExistEdit(pessoaExistente);
+        pessoa.setCpf(pessoa.getCpf().replaceAll("\\D", ""));
+        validator.cpfExistEdit(pessoa);
 
-        pessoaExistente.setNome(pessoa.getNome());
-        pessoaExistente.setEmail(pessoa.getEmail());
-        pessoaExistente.setTelefone(pessoa.getTelefone());
-        pessoaExistente.setUsuario(pessoa.getUsuario());
-        pessoaExistente.setSenha(pessoa.getSenha());
-        pessoaExistente.setAtivo(pessoa.isAtivo());
+        pessoa.setNome(pessoa.getNome());
+        pessoa.setEmail(pessoa.getEmail());
+        pessoa.setTelefone(pessoa.getTelefone());
+        pessoa.setUsuario(pessoa.getUsuario());
+        pessoa.setSenha(pessoa.getSenha());
+        pessoa.setAtivo(pessoa.isAtivo());
 
-        return repository.save(pessoaExistente);
+        return repository.save(pessoa);
     }
 
     public void excluirPessoa(Pessoa pessoa) {

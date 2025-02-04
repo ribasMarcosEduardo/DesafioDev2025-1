@@ -1,21 +1,15 @@
 package gitHub.ribasMarcosEduardo.gestaoDeCurso.controller;
 
-import gitHub.ribasMarcosEduardo.gestaoDeCurso.controller.DTO.EstCursoDTO;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.controller.DTO.PessoaDTO;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.entity.Pessoa;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.repository.PessoaRepository;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.service.PessoaService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.util.Collections;
-import java.util.List;
 
 
 @RequiredArgsConstructor
@@ -46,7 +40,7 @@ public class pessoaController {
     @PostMapping("/atualizarPessoa")
     public String atualizarPessoa(@ModelAttribute PessoaDTO pessoaDTO, RedirectAttributes redirectAttributes) {
         Pessoa pessoa = pessoaDTO.mapearPessoa();
-        pessoaService.atualizarPessoa(pessoa); // Agora o ID está presente para atualização
+        pessoaService.atualizarPessoa(pessoa);
         redirectAttributes.addFlashAttribute("mensagemSucesso", "Pessoa atualizada com sucesso!");
         return "redirect:/buscarPessoa";
     }
