@@ -46,17 +46,11 @@
     <div th:if="${matriculaSucess}" id="success-alert" class="alert alert-success">
         <p th:text="${matriculaSucess}"></p>
     </div>
-    <div th:if="${CursoInativo}" id="error-alert" class="alert alert-danger">
-        <p th:text="${CursoInativo}"></p>
+    <div th:if="${ObjetoNaoEncontrado}" id="error-alert3" class="alert alert-danger">
+        <p th:text="${ObjetoNaoEncontrado}"></p>
     </div>
-    <div th:if="${CursoNaoencontrado}" id="error-alert2" class="alert alert-danger">
-        <p th:text="${CursoNaoencontrado}"></p>
-    </div>
-    <div th:if="${PessoaNaoEncontradaE}" id="error-alert3" class="alert alert-danger">
-        <p th:text="${PessoaNaoEncontradaE}"></p>
-    </div>
-    <div th:if="${PessoaInativa}" id="error-alert4" class="alert alert-danger">
-        <p th:text="${PessoaInativa}"></p>
+    <div th:if="${ObjetoInativo}" id="error-alert4" class="alert alert-danger">
+        <p th:text="${ObjetoInativo}"></p>
     </div>
 </div>  <!-- Alert -->
 

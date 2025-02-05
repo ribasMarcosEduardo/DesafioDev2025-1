@@ -1,7 +1,7 @@
 package gitHub.ribasMarcosEduardo.gestaoDeCurso.validator.exeption;
 
-public class PessoaInativa extends RuntimeException {
-    public PessoaInativa(String message) {
+public class ObjetoInativo extends RuntimeException {
+    public ObjetoInativo(String message) {
         super(message);
     }
 }

@@ -23,7 +23,7 @@ public class Validator {
     public void validarEndereco(PessoaEndereco endereco) {
         Optional<PessoaEndereco> enderecoExistente = enderecoRepository.findByPessoa_Id(endereco.getPessoa().getId());
         if (enderecoExistente.isPresent()) {
-            throw new EnderecoJaCadastradoException("A pessoa já possui um endereço cadastrado.");
+            throw new ObjetoDuplicado("A pessoa já possui um endereço cadastrado.");
         }
     }
     //------------------------------------------------------------------------------------------------------------------
@@ -36,7 +36,7 @@ public class Validator {
         }
 
         if (curso.getSituacao().equals(Situacao.Inativo)) {
-            throw new CursoInativo("O curso inativo.");
+            throw new ObjetoInativo("O curso inativo.");
         }
     }
 
@@ -50,7 +50,7 @@ public class Validator {
         }
 
         if (!pessoa.isAtivo()) {
-            throw new PessoaInativa("Pessoa inativo.");
+            throw new ObjetoInativo("Pessoa inativo.");
         }
     }
 
@@ -86,7 +86,7 @@ public class Validator {
         String cpfNormalizado = pessoa.getCpf().replaceAll("\\D", "");
         Optional<Pessoa> cpfExistente = pessoaRepository.findByCpf(cpfNormalizado);
         if (cpfExistente.isPresent()) {
-            throw new CpfJaCadastrado("Usuário já cadastrado");
+            throw new ObjetoDuplicado("Usuário já cadastrado");
         }
     }
 
@@ -98,7 +98,7 @@ public class Validator {
         String cpfNormalizado = pessoa.getCpf().replaceAll("\\D", "");
         Optional<Pessoa> cpfExistente = pessoaRepository.findByCpf(cpfNormalizado);
         if (cpfExistente.isPresent() && cpfExistente.get().getId() != pessoa.getId()) {
-            throw new CpfJaCadastrado("CPF já existente");
+            throw new ObjetoDuplicado("CPF já existente");
         }
     }
 

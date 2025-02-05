@@ -45,8 +45,8 @@
     <div th:if="${mensagemSucesso}" id="success-alert" class="alert alert-success text-center">
         <p th:text="${mensagemSucesso}"></p>
     </div>
-    <div th:if="${cpfJaCadastrado}" id="error-alert" class="alert alert-danger">
-        <p th:text="${cpfJaCadastrado}"></p>
+    <div th:if="${ObjetoDuplicado}" id="error-alert" class="alert alert-danger">
+        <p th:text="${ObjetoDuplicado}"></p>
     </div>
     <div th:if="${Dependencias}" id="error-alert2" class="alert alert-danger">
         <p th:text="${Dependencias}"></p>
