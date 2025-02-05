@@ -5,7 +5,7 @@ import gitHub.ribasMarcosEduardo.gestaoDeCurso.entity.Pessoa;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.entity.Situacao;
 
 public record CursoDTO(
-        Integer id,
+        int id,
         String nome,
         String assunto,
         Integer encontros,

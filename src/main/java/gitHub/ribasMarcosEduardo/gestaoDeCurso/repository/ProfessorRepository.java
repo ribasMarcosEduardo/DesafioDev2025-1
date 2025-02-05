@@ -11,11 +11,10 @@ import java.util.Optional;
 public interface ProfessorRepository extends JpaRepository<ProfessorCurso, Integer> {
 
     Optional<ProfessorCurso> findByCursoId(int cursoId);
-    @Query("SELECT p.professor.id FROM ProfessorCurso p WHERE p.professor.id = :pessoaId")
-    Optional<Integer> findCodPessoaById(@Param("pessoaId") int pessoaId);
 
+    boolean existsByProfessor_Id(int professorId);
 
-
+    boolean existsByCurso_Id(int cursoId);
 }
 
 

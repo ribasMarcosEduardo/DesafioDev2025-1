@@ -23,6 +23,7 @@ public class SecurityConfiguration {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/login", "/css/**", "/js/**", "/images/**").permitAll()
+                        .requestMatchers("/excluirCurso").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(configurer -> configurer

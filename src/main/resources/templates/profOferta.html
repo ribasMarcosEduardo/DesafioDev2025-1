@@ -49,17 +49,14 @@
     <div th:if="${CursoInativo}" id="error-alert" class="alert alert-danger">
         <p th:text="${CursoInativo}"></p>
     </div>
-    <div th:if="${CursoNaoencontrado}" id="error-alert2" class="alert alert-danger">
-        <p th:text="${CursoNaoencontrado}"></p>
-    </div>
-    <div th:if="${PessoaNaoEncontradaE}" id="error-alert3" class="alert alert-danger">
-        <p th:text="${PessoaNaoEncontradaE}"></p>
+    <div th:if="${ObjetoNaoEncontrado}" id="error-alert3" class="alert alert-danger">
+        <p th:text="${ObjetoNaoEncontrado}"></p>
     </div>
     <div th:if="${PessoaInativa}"  id="error-alert4" class="alert alert-danger">
         <p th:text="${PessoaInativa}"></p>
     </div>
-    <div th:if="${ProfessorDuplicado}" id="error-alert5" class="alert alert-danger">
-        <p th:text="${ProfessorDuplicado}"></p>
+    <div th:if="${ObjetoDuplicado}" id="error-alert5" class="alert alert-danger">
+        <p th:text="${ObjetoDuplicado}"></p>
     </div>
 </div>  <!-- Alert -->
 

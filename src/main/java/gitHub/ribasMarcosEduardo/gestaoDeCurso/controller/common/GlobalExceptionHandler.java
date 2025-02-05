@@ -18,15 +18,9 @@ public class GlobalExceptionHandler {
         return getRedirectUrl(request); // retorna para a origem
     }
 
-    @ExceptionHandler(CursoNaoencontrado.class)
-    public String handleCursoNaoEncontrado(CursoNaoencontrado e, RedirectAttributes redirectAttributes, HttpServletRequest request) {
-        redirectAttributes.addFlashAttribute("CursoNaoencontrado", e.getMessage());
-        return getRedirectUrl(request);
-    }
-
-    @ExceptionHandler(PessoaNaoEncontradaException.class)
-    public String handlePessoaNaoEncontrada(PessoaNaoEncontradaException e, RedirectAttributes redirectAttributes, HttpServletRequest request) {
-        redirectAttributes.addFlashAttribute("PessoaNaoEncontradaE", e.getMessage());
+    @ExceptionHandler(ObjetoNaoEncontrado.class)
+    public String handleObjetoNaoEncontrado(ObjetoNaoEncontrado e, RedirectAttributes redirectAttributes, HttpServletRequest request) {
+        redirectAttributes.addFlashAttribute("ObjetoNaoEncontrado", e.getMessage());
         return getRedirectUrl(request);
     }
 
@@ -36,17 +30,22 @@ public class GlobalExceptionHandler {
         return getRedirectUrl(request);
     }
 
-    @ExceptionHandler(CursoDuplicado.class)
-    public String handleCursoDuplicado(CursoDuplicado e, RedirectAttributes redirectAttributes, HttpServletRequest request){
-        redirectAttributes.addFlashAttribute("cursoDuplicado",e.getMessage());
+    @ExceptionHandler(Dependencias.class)
+    public String handleDependencias(Dependencias e, RedirectAttributes redirectAttributes, HttpServletRequest request){
+        redirectAttributes.addFlashAttribute("Dependencias",e.getMessage());
         return getRedirectUrl(request);
     }
-
 
 
     @ExceptionHandler(CpfJaCadastrado.class)
     public String andleCpfJaCadastrado(CpfJaCadastrado e,RedirectAttributes redirectAttributes, HttpServletRequest request){
         redirectAttributes.addFlashAttribute("cpfJaCadastrado", e.getMessage());
+        return getRedirectUrl(request);
+    }
+
+    @ExceptionHandler(ObjetoDuplicado.class)
+    public String handleObjetoDuplicado(ObjetoDuplicado e, RedirectAttributes redirectAttributes, HttpServletRequest request){
+        redirectAttributes.addFlashAttribute("ObjetoDuplicado",e.getMessage());
         return getRedirectUrl(request);
     }
 
@@ -59,24 +58,6 @@ public class GlobalExceptionHandler {
     public String handleEnderecoJaCadastrado(EnderecoJaCadastradoException e, RedirectAttributes redirectAttributes) {
         redirectAttributes.addFlashAttribute("mensagemErroJaCadastrado", e.getMessage());
         return "redirect:/cadastroEndereco";
-    }
-
-    @ExceptionHandler(ProfessorDuplicado.class)
-    public String handleProfessorDuplicado(ProfessorDuplicado e, RedirectAttributes redirectAttributes){
-        redirectAttributes.addFlashAttribute("ProfessorDuplicado", e.getMessage());
-        return "redirect:/profOferta";
-    }
-
-    @ExceptionHandler(UsuarioDuplicado.class)
-    public String handleUsuarioDuplicado(UsuarioDuplicado e, RedirectAttributes redirectAttributes){
-        redirectAttributes.addFlashAttribute("usuarioDuplicado",e.getMessage());
-        return "redirect:/cadastroPessoa";
-    }
-
-    @ExceptionHandler(PessoaComDependencias.class)
-    public String handlePessoaComDependencias(PessoaComDependencias e, RedirectAttributes redirectAttributes){
-        redirectAttributes.addFlashAttribute("pessoaComDependencias",e.getMessage());
-        return "redirect:/buscarPessoa";
     }
 
 

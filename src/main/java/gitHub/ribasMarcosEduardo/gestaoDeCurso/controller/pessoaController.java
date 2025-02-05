@@ -46,11 +46,10 @@ public class pessoaController {
     }
 
     @DeleteMapping("/excluirPessoa/{id}")
-    public String excluirPessoa(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
-        Pessoa pessoa = pessoaRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Pessoa não encontrada."));
-        pessoaService.excluirPessoa(pessoa);
+    public String excluirPessoa(@PathVariable int id, RedirectAttributes redirectAttributes) {
+        pessoaService.excluirPessoa(id);
         redirectAttributes.addFlashAttribute("mensagemSucesso", "Pessoa excluída com sucesso!");
-        return "redirect:/buscarPessoa";
+        return "redirect:/cadastroPessoa";
     }
 
 

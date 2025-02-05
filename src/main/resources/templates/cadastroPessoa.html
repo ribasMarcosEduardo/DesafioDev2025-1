@@ -46,11 +46,14 @@
     <div style=" text-align: center; line-height: 50px;" th:if="${mensagemSucesso}" id="success-alert"  class="alert alert-success">
         <p th:text="${mensagemSucesso}"></p>
     </div>
-    <div th:if="${usuarioDuplicado}" id="error-alert" class="alert alert-danger">
-        <p th:text="${usuarioDuplicado}"></p>
+    <div th:if="${ObjetoDuplicado}"class="alert alert-danger">
+        <p th:text="${ObjetoDuplicado}"></p>
     </div>
-    <div th:if="${cpfJaCadastrado}" id="error-alert2" class="alert alert-danger">
+    <div th:if="${cpfJaCadastrado}"  class="alert alert-danger">
         <p th:text="${cpfJaCadastrado}"></p>
+    </div>
+    <div th:if="${Dependencias}"  class="alert alert-danger">
+        <p th:text="${Dependencias}"></p>
     </div>
 </div>
 

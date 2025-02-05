@@ -5,17 +5,11 @@ import gitHub.ribasMarcosEduardo.gestaoDeCurso.entity.Curso;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.entity.Pessoa;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.repository.CursoRepository;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.repository.PessoaRepository;
-import gitHub.ribasMarcosEduardo.gestaoDeCurso.service.EstCursoService;
-import gitHub.ribasMarcosEduardo.gestaoDeCurso.service.PessoaService;
-import gitHub.ribasMarcosEduardo.gestaoDeCurso.validator.exeption.PessoaNaoEncontradaException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.List;
 
 @RequiredArgsConstructor
 @Controller
@@ -50,7 +44,7 @@ public class ViewController {
 
     @GetMapping("cadastroCurso")
     public String cadastroCurso(Model model){
-        model.addAttribute("cursoDTO", new CursoDTO(null,null,null,null,null));
+        model.addAttribute("cursoDTO", new CursoDTO(0,null,null,null,null));
         return "cadastroCurso"; // http://localhost:8080/cadastroCurso
     }
 
@@ -112,6 +106,7 @@ public class ViewController {
 
         return "editCurso";
     }
+
 
     @GetMapping("login")
     public String login() {

@@ -43,8 +43,11 @@
     <div th:if="${mensagemSucesso}" class="alert alert-success">
         <p th:text="${mensagemSucesso}"></p>
     </div>
-    <div th:if="${cursoDuplicado}" class="alert alert-danger">
-        <p th:text="${cursoDuplicado}"></p>
+    <div th:if="${ObjetoDuplicado}" class="alert alert-danger">
+        <p th:text="${ObjetoDuplicado}"></p>
+    </div>
+    <div th:if="${Dependencias}" id="error-alert2" class="alert alert-danger">
+        <p th:text="${Dependencias}"></p>
     </div>
 </div><!-- Alert -->
 

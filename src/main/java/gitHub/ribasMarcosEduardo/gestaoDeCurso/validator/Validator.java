@@ -6,7 +6,6 @@ import gitHub.ribasMarcosEduardo.gestaoDeCurso.validator.exeption.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -32,8 +31,8 @@ public class Validator {
     // Validação de curso
 
     public void validarCurso(Curso curso) {
-        if (curso == null || curso.getId() == null) {
-            throw new CursoNaoencontrado("O curso não foi encontrado.");
+        if (curso == null || curso.getId() == 0) {
+            throw new ObjetoNaoEncontrado("O curso não foi encontrado.");
         }
 
         if (curso.getSituacao().equals(Situacao.Inativo)) {
@@ -47,7 +46,7 @@ public class Validator {
 
     public void validarPessoa(Pessoa pessoa){
         if (pessoa == null) {
-            throw new PessoaNaoEncontradaException("Pessoa não encontrada.");
+            throw new ObjetoNaoEncontrado("Pessoa não encontrada.");
         }
 
         if (!pessoa.isAtivo()) {
@@ -62,7 +61,7 @@ public class Validator {
     public void validarOferta(ProfessorCurso professor) {
         Optional<ProfessorCurso> ofertaExistente = professorRepository.findByCursoId(professor.getCurso().getId());
         if (ofertaExistente.isPresent()) {
-            throw new ProfessorDuplicado("Essa oferta já tem um professor vinculado!");
+            throw new ObjetoDuplicado("Essa oferta já tem um professor vinculado!");
         }
     }
 
@@ -72,8 +71,8 @@ public class Validator {
 
     public void cursoDuplicado(Curso curso) {
         Optional<Curso> cursoExistente = cursoRepository.findByNome(curso.getNome());
-        if (cursoExistente.isPresent() && !cursoExistente.get().getId().equals(curso.getId())) {
-            throw new CursoDuplicado("Já existe um curso com o mesmo nome");
+        if (cursoExistente.isPresent() && cursoExistente.get().getId() != curso.getId()) {
+            throw new ObjetoDuplicado("Já existe um curso com o mesmo nome");
         }
     }
     // Validação de Cadastro duplicado
@@ -81,7 +80,7 @@ public class Validator {
     public void usuarioDuplicado(Pessoa pessoa){
         Optional<Pessoa> usuarioExistente = pessoaRepository.findByUsuario(pessoa.getUsuario());
         if(usuarioExistente.isPresent()){
-            throw new UsuarioDuplicado("Já escolheram esse nome!");
+            throw new ObjetoDuplicado("Já escolheram esse nome!");
         }
 
         String cpfNormalizado = pessoa.getCpf().replaceAll("\\D", "");
@@ -103,15 +102,34 @@ public class Validator {
         }
     }
 
-    public void verificarDependencias(Pessoa pessoa, List<Optional<Integer>> dependencias) {
-        for (Optional<Integer> dependencia : dependencias) {
-            if (dependencia.isPresent()) {
-                throw new PessoaComDependencias("Não é possível excluir, pois o usuário possui dependências.");
-            }
+    // Pendências Pessoa
+
+    public void verificarPendenciaPessoa(Pessoa pessoa) {
+        boolean professor = professorRepository.existsByProfessor_Id(pessoa.getId());
+        if (professor) {
+            throw new Dependencias("Não é possível excluir, pois o usário é professor de uma oferta.");
+        }
+
+        boolean estudante = estudanteCurRepository.existsByEstudante_Id(pessoa.getId());
+        if (estudante) {
+            throw new Dependencias("Não é possível excluir, pois o usuário está matriculado em um curso.");
         }
     }
 
-    //
+    // Pendências curso
+
+    public void verificarPendenciaCurso(Curso curso) {
+        boolean professorVinculado = professorRepository.existsByCurso_Id(curso.getId());
+        if (professorVinculado) {
+            throw new Dependencias("Não é possível excluir, pois o curso possui professor na oferta.");
+        }
+
+        boolean estudanteVinculado = estudanteCurRepository.existsByCurso_Id(curso.getId());
+        if (estudanteVinculado) {
+            throw new Dependencias("Não é possível excluir, pois o curso possui estudantes matriculados.");
+        }
+    }
+
 }
 
 

@@ -1,13 +1,9 @@
 package gitHub.ribasMarcosEduardo.gestaoDeCurso.controller;
 
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.controller.DTO.CursoDTO;
-import gitHub.ribasMarcosEduardo.gestaoDeCurso.controller.DTO.EstCursoDTO;
-import gitHub.ribasMarcosEduardo.gestaoDeCurso.controller.DTO.PessoaDTO;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.entity.Curso;
-import gitHub.ribasMarcosEduardo.gestaoDeCurso.entity.EstudanteCurso;
-import gitHub.ribasMarcosEduardo.gestaoDeCurso.entity.Pessoa;
+import gitHub.ribasMarcosEduardo.gestaoDeCurso.repository.CursoRepository;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.service.CursoService;
-import gitHub.ribasMarcosEduardo.gestaoDeCurso.service.EstCursoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class cursoController{
 
     private final CursoService cursoService;
+    private final CursoRepository cursoRepository;
 
     @PostMapping("/salvarCurso")
     public String salvarCurso(@ModelAttribute CursoDTO cursoDTO, RedirectAttributes redirectAttributes) {
@@ -46,8 +43,16 @@ public class cursoController{
         return "redirect:/buscarCurso";
     }
 
-
-
-
-
+    @DeleteMapping("/excluirCurso/{id}")
+    public String excluirPessoa(@PathVariable int id, RedirectAttributes redirectAttributes) {
+        cursoService.excluirCurso(id);
+        redirectAttributes.addFlashAttribute("mensagemSucesso", "Curso excluído com sucesso!");
+        return "redirect:/cadastroCurso";
+    }
 }
+
+
+
+
+
+

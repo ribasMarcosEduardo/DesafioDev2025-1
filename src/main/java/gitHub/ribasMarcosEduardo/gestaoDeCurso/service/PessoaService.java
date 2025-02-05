@@ -1,19 +1,13 @@
 package gitHub.ribasMarcosEduardo.gestaoDeCurso.service;
 
-import gitHub.ribasMarcosEduardo.gestaoDeCurso.controller.DTO.EstCursoDTO;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.entity.Pessoa;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.repository.EstudanteCurRepository;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.repository.PessoaRepository;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.repository.ProfessorRepository;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.validator.Validator;
-import gitHub.ribasMarcosEduardo.gestaoDeCurso.validator.exeption.PessoaNaoEncontradaException;
-import jakarta.persistence.EntityNotFoundException;
+import gitHub.ribasMarcosEduardo.gestaoDeCurso.validator.exeption.ObjetoNaoEncontrado;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -32,7 +26,7 @@ public class PessoaService {
 
     public Pessoa buscarPessoaPorNome(String nome) {
         return repository.findByNome(nome)
-                .orElseThrow(() -> new PessoaNaoEncontradaException("Pessoa não encontrada"));
+                .orElseThrow(() -> new ObjetoNaoEncontrado("Pessoa não encontrada"));
     }
 
     public Pessoa atualizarPessoa(Pessoa pessoa) {
@@ -49,18 +43,12 @@ public class PessoaService {
         return repository.save(pessoa);
     }
 
-    public void excluirPessoa(Pessoa pessoa) {
-        List<Optional<Integer>> dependencias = Arrays.asList(
-                professorRepository.findCodPessoaById(pessoa.getId()),
-                estudanteCurRepository.findCodPessoaById(pessoa.getId())
-        );
-
-        validator.verificarDependencias(pessoa, dependencias);
-        if (repository.existsById(pessoa.getId())){
-            repository.deleteById(pessoa.getId());
-        }
+    public void excluirPessoa(int id) {
+        Pessoa pessoa = repository.findById(id)
+                .orElseThrow(() -> new ObjetoNaoEncontrado("Pessoa não encontrado"));
+        validator.verificarPendenciaPessoa(pessoa);
+        repository.delete(pessoa);
     }
-
 
 
 
