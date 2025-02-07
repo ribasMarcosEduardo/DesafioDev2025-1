@@ -27,13 +27,13 @@ public class SecurityConfiguration {
                         .anyRequest().authenticated()
                 )
                 .formLogin(configurer -> configurer
-                        .loginPage("/login") // Página de login personalizada
+                        .loginPage("/login")
                         .defaultSuccessUrl("/menuPrincipal", true)
                         .failureUrl("/login?error=true")
                         .permitAll()
                 )
                 .logout(logout -> logout
-                        .logoutUrl("/logout") // URL para logout
+                        .logoutUrl("/logout")
                         .logoutSuccessUrl("/login?logout=true")
                         .permitAll()
                 )

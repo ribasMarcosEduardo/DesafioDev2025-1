@@ -37,8 +37,21 @@
                         <li><a class="dropdown-item" href="http://localhost:8080/profOferta">Professor da Oferta</a></li>
                     </ul>
                 </li>
+                <li class="nav-item dropdown">
+                    <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Relatórios</button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="http://localhost:8080/cursoMatriculas">Matriculados por curso</a></li>
+                    </ul>
+                </li>
             </ul>
         </div>
+        <ul class="navbar-nav ms-auto">
+            <li class="nav-item" th:if="${username != null}">
+        <span class="navbar-text">
+            Olá, <span th:text="${username}">Usuário</span>!
+        </span>
+            </li>
+        </ul>
     </div>
 </nav> <!-- nav -->
 

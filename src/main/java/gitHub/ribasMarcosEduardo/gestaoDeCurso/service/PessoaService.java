@@ -7,6 +7,7 @@ import gitHub.ribasMarcosEduardo.gestaoDeCurso.repository.ProfessorRepository;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.validator.Validator;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.validator.exeption.ObjetoNaoEncontrado;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -21,6 +22,7 @@ public class PessoaService {
     public Pessoa salvarPessoa(Pessoa pessoa) {
         validator.usuarioDuplicado(pessoa);
         pessoa.setCpf(pessoa.getCpf().replaceAll("\\D", ""));
+        String encryptedPassword = new BCryptPasswordEncoder().encode(pessoa.getSenha());
         return repository.save(pessoa);
     }
 
@@ -49,6 +51,7 @@ public class PessoaService {
         validator.verificarPendenciaPessoa(pessoa);
         repository.delete(pessoa);
     }
+
 
 
 
