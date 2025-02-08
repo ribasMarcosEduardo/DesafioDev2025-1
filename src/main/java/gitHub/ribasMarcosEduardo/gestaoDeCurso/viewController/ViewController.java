@@ -117,8 +117,16 @@ public class ViewController {
 
     @GetMapping("/cursoMatriculas")
     public String mostrarPaginaDeMatriculas() {
+
         return "cursoMatriculas"; // http://localhost:8080/cursoMatriculas
     }
+
+    @GetMapping("/mostrarCursosEstudante")
+    public String mostrarCursosEstudante() {
+
+        return "mostrarCursosEstudante"; // http://localhost:8080/mostrarCursosEstudante
+    }
+
 
 
 

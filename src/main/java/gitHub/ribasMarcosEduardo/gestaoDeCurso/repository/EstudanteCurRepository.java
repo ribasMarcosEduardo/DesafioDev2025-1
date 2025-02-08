@@ -12,19 +12,24 @@ import java.util.Optional;
 public interface EstudanteCurRepository extends JpaRepository<EstudanteCurso, Integer> {
     boolean existsByEstudante_Id(int estudanteId);
 
+    Optional<EstudanteCurso> findByEstudanteIdAndCursoId(int estudanteId, int cursoId);
+
     boolean existsByCurso_Id(int cursoId);
 
-    @Query("SELECT ec FROM EstudanteCurso ec " +
-            "JOIN ec.curso c " +
+    @Query("SELECT p.nome FROM EstudanteCurso ec " +
             "JOIN ec.estudante p " +
-            "WHERE c.nome = :nomeCurso")
-    List<EstudanteCurso> findByCursoNome(String nomeCurso);
+            "JOIN ec.curso c " +
+            "WHERE c.nome = :nomeCurso " +
+            "ORDER BY p.nome")
+    List<String> findNomesEstudantesByCursoNome(@Param("nomeCurso") String nomeCurso);
 
-    /*@Query("SELECT ec FROM EstudanteCurso ec " +
+
+    @Query("SELECT c.nome FROM EstudanteCurso ec " +
             "JOIN ec.curso c " +
             "JOIN ec.estudante p " +
-            "WHERE c.nome = :nomeCurso")
-    List<EstudanteCurso> findByCursoNome(String nomeCurso);*/
+            "WHERE p.nome = :nomePessoa " +
+            "ORDER BY c.nome")
+    List<String> findCursosByPessoaNome(@Param("nomePessoa") String nomePessoa);
 
 
 

@@ -18,6 +18,7 @@ public class EstCursoService {
     public EstudanteCurso matricularAluno(EstudanteCurso estudanteCurso){
         validator.validarPessoa(estudanteCurso.getEstudante());
         validator.validarCurso(estudanteCurso.getCurso());
+        validator.validarMatricula(estudanteCurso);
         return estudanteCurRepository.save(estudanteCurso);
     }
 

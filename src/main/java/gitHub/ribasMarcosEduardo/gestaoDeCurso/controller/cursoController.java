@@ -72,11 +72,7 @@ public class cursoController {
 
     @PostMapping("/mostrarEstudantes")
     public String listarEstudantesPorCurso(@RequestParam String nomeCurso, Model model) {
-        List<EstudanteCurso> estudantesCurso = estudanteCurRepository.findByCursoNome(nomeCurso);
-        List<String> nomesEstudantes = estudantesCurso.stream()
-                .map(estudanteCurso -> estudanteCurso.getEstudante().getNome())
-                .sorted()
-                .collect(Collectors.toList());
+        List<String> nomesEstudantes = estudanteCurRepository.findNomesEstudantesByCursoNome(nomeCurso);
 
         model.addAttribute("nomesEstudantes", nomesEstudantes);
         model.addAttribute("nomeCurso", nomeCurso);
@@ -84,21 +80,17 @@ public class cursoController {
         return "listaEstudantes";
     }
 
-    /*@PostMapping("/mostrarCursos")
-    public String listarCursosPorEstudantes(@RequestParam String nomeEstudante, Model model) {
-        List<EstudanteCurso> estudantesCurso = estudanteCurRepository.findByCursoNome(nomeEstudante);
-        List<String> nomesEstudantes = estudantesCurso.stream()
-                .map(estudanteCurso -> estudanteCurso.getEstudante().getNome())
-                .sorted()
-                .collect(Collectors.toList());
+    @PostMapping("/mostrarCursosEstudante")
+    public String listarCursosPorEstudante(@RequestParam String nomePessoa, Model model) {
+        List<String> cursos = estudanteCurRepository.findCursosByPessoaNome(nomePessoa);
 
-        model.addAttribute("nomesEstudantes", nomesEstudantes);
-        model.addAttribute("nomeCurso", nomeCurso);
+        model.addAttribute("cursos", cursos);
+        model.addAttribute("nomePessoa", nomePessoa);
 
-        return "listaEstudantes";*/
+        return "listaCursosEstudante";
     }
 
-
+}
 
 
 

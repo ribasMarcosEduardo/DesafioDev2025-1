@@ -67,6 +67,21 @@ public class Validator {
 
     //------------------------------------------------------------------------------------------------------------------
 
+    // Validação de estudante
+
+    public void validarMatricula(EstudanteCurso estudanteCurso) {
+        Optional<EstudanteCurso> matriculado = estudanteCurRepository
+                .findByEstudanteIdAndCursoId(estudanteCurso.getEstudante().getId(), estudanteCurso.getCurso().getId());
+
+        if (matriculado.isPresent()) {
+            throw new ObjetoDuplicado("O estudante já está matriculado neste curso!");
+        }
+    }
+
+
+
+    //------------------------------------------------------------------------------------------------------------------
+
     // Valdação de curso duplicado
 
     public void cursoDuplicado(Curso curso) {
@@ -102,6 +117,8 @@ public class Validator {
         }
     }
 
+    //------------------------------------------------------------------------------------------------------------------
+
     // Pendências Pessoa
 
     public void verificarPendenciaPessoa(Pessoa pessoa) {
@@ -115,6 +132,8 @@ public class Validator {
             throw new Dependencias("Não é possível excluir, pois o usuário está matriculado em um curso.");
         }
     }
+
+    //------------------------------------------------------------------------------------------------------------------
 
     // Pendências curso
 

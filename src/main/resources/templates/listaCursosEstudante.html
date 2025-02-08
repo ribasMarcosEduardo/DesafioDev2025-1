@@ -1,22 +1,23 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="pt" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
     <link rel="stylesheet" href="/style.css">
-
-    <title>Cadastro de Endereço</title>
+    <title>Lista de Cursos</title>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
-<body>
 
+<body>
 <nav class="navbar navbar-expand-lg custom-header">
     <div class="container-fluid">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown"
+                aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+
         <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
             <ul class="navbar-nav">
                 <li class="nav-item dropdown">
@@ -43,6 +44,7 @@
                 </li>
             </ul>
         </div>
+
         <ul class="navbar-nav ms-auto">
             <li class="nav-item dropdown">
                 <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
@@ -60,75 +62,24 @@
             </li>
         </ul>
     </div>
-</nav> <!-- nav -->
-
-<div class="div-alert">
-    <div th:if="${mensagemSucesso}" id="success-alert" class="alert alert-success">
-        <p th:text="${mensagemSucesso}"></p>
-    </div>
-    <div th:if="${ObjetoNaoEncontrado}" id="error-alert" class="alert alert-danger">
-        <p th:text="${ObjetoNaoEncontrado}"></p>
-    </div>
-    <div th:if="${mensagemErroJaCadastrado}" id="error-alert2" class="alert alert-danger">
-        <p th:text="${mensagemErroJaCadastrado}"></p>
-    </div>
-    <div th:if="${ObjetoInativo}" id="error-alert3" class="alert alert-danger">
-        <p th:text="${ObjetoInativo}"></p>
-    </div>
-</div>  <!-- Alert -->
-
+</nav>
 
 <div class="div-borda">
-    <h3 class="titulo">Cadastro de Endereço:</h3>
+    <h3>Cursos do Estudante: <span th:text="${nomePessoa}"></span></h3>
 
-    <form class="form-container" th:action="@{endereco/salvarEndereco}" th:object="${enderecoDTO}" method="post">
-        <div class="row">
-            <div class="col">
-                <label th:for="*{CODPESSOA}" class="form-label">Código</label>
-                <input type="text" class="form-control campo_config" th:field="*{CODPESSOA}" id="CODPESSOA" required>
-            </div>
+    <form class="form-container">
+        <ul class="list-group">
+            <li class="list-group-item" th:each="curso : ${cursos}" th:text="${curso}"></li>
+        </ul>
 
-        </div>
+        <p th:if="${cursos.isEmpty()}">Nenhum curso encontrado para este estudante.</p>
 
         <div class="row">
-            <div class="col">
-                <label th:for="*{cidade}" class="form-label">Cidade:</label>
-                <input type="text" class="form-control campo_config" th:field="*{cidade}" id="cidade" required>
+            <div class="col" style="margin: 10px 0px;">
+                <a th:href="@{/mostrarCursosEstudante}" class="btn btn-primary">Voltar</a>
             </div>
         </div>
-
-        <div class="row">
-            <div class="col">
-                <label th:for="*{cep}" class="form-label">CEP:</label>
-                <input type="text" class="form-control campo_config" th:field="*{cep}" id="cep" required>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col">
-                <label th:for="*{rua}" class="form-label">Rua:</label>
-                <input type="text" class="form-control" th:field="*{rua}" id="rua" required>
-            </div>
-
-            <div class="col">
-                <label th:for="*{numero}" class="form-label">Número:</label>
-                <input type="text" class="form-control" th:field="*{numero}" id="numero" required>
-            </div>
-        </div>
-
-        <div style="padding: 10px 0px" class="row">
-            <div class="col">
-                <button type="submit" class="btn btn-success">Save</button>
-                <a th:href="@{/menuPrincipal}" class="btn btn-danger">Cancel</a>
-            </div>
-        </div>
-
-        <script>
-            setTimeout(() => document.querySelectorAll('.alert').forEach(alert => alert.remove()), 3000);
-        </script>
     </form>
-
 </div>
-
 </body>
 </html>
