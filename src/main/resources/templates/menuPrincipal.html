@@ -42,14 +42,39 @@
             </ul>
         </div>
         <ul class="navbar-nav ms-auto">
-            <li class="nav-item" th:if="${username != null}">
-        <span class="navbar-text">
-            Olá, <span th:text="${username}">Usuário</span>!
-        </span>
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        <span class="navbar-text" th:if="${username != null}">
+                            Olá, <span th:text="${username}"></span>!
+                        </span>
+                </button>
+                <ul class="dropdown-menu custom-dropdown">
+                    <li>
+                        <form id="logoutForm" action="/logout" method="POST">
+                            <button class="dropdown-item" type="submit">Logout</button>
+                        </form>
+                    </li>
+                </ul>
             </li>
         </ul>
     </div>
 </nav>
+
+<script>
+    document.getElementById("logoutForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+        fetch("/logout", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            }
+        }).then(response => {
+            if (response.ok) {
+                window.location.href = "/login?logout=true";
+            }
+        });
+    });
+</script>
 
 
 </body>

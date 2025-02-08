@@ -23,6 +23,7 @@ public class PessoaService {
         validator.usuarioDuplicado(pessoa);
         pessoa.setCpf(pessoa.getCpf().replaceAll("\\D", ""));
         String encryptedPassword = new BCryptPasswordEncoder().encode(pessoa.getSenha());
+        pessoa.setSenha(encryptedPassword);
         return repository.save(pessoa);
     }
 
@@ -41,7 +42,8 @@ public class PessoaService {
         pessoa.setUsuario(pessoa.getUsuario());
         pessoa.setSenha(pessoa.getSenha());
         pessoa.setAtivo(pessoa.isAtivo());
-
+        String encryptedPassword = new BCryptPasswordEncoder().encode(pessoa.getSenha());
+        pessoa.setSenha(encryptedPassword);
         return repository.save(pessoa);
     }
 

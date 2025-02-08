@@ -77,3 +77,7 @@ body {
     border-radius: 0 0 15px 15px;
     padding: 17px 15px;
 }
+
+.custom-dropdown {
+        min-width: 125px;
+    }
