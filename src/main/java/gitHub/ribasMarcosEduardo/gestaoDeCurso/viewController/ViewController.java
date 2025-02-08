@@ -24,11 +24,19 @@ public class ViewController {
     public String menuPrincipal(){
         return "menuPrincipal";}// http://localhost:8080/menuPrincipal
 
+    @GetMapping("menuPrincipalEstudante")
+    public String menuPrincipalEstudante(){
+        return "menuPrincipalEstudante";}// http://localhost:8080/menuPrincipalEstudante
+
+    @GetMapping("menuPrincipalProfessor")
+    public String menuPrincipalProfessor(){
+        return "menuPrincipalProfessor";}// http://localhost:8080/menuPrincipalProfessor
+
     // Cadastro de Pessoa
 
     @GetMapping("cadastroPessoa")
     public String cadastroPessoa(Model model){
-        model.addAttribute("pessoaDTO", new PessoaDTO(0,null,null,null,null,null,null,true));
+        model.addAttribute("pessoaDTO", new PessoaDTO(0,null,null ,null,null,null,null,true));
         return "cadastroPessoa"; // http://localhost:8080/cadastroPessoa
     }
 

@@ -11,6 +11,7 @@ public record PessoaDTO (
         String usuario,
         String senha,
         boolean ativo
+
 ){
     public Pessoa mapearPessoa(){
         Pessoa pessoa = new Pessoa();

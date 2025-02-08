@@ -24,8 +24,8 @@ public class PessoaUserDetailsService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado"));
 
         return User.withUsername(pessoa.getUsuario())
-                .password(pessoa.getSenha()) // Senha já criptografada no banco
-                .roles("USER")
+                .password(pessoa.getSenha())
+                .roles(pessoa.getRole().name())
                 .build();
     }
 }

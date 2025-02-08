@@ -8,7 +8,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -17,17 +16,21 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfiguration {
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http, PessoaUserDetailsService pessoaUserDetailsService) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, PessoaUserDetailsService pessoaUserDetailsService,
+                                                   PessoaRepository pessoaRepository) throws Exception {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/login", "/css/**", "/js/**", "/images/**").permitAll()
-                        .requestMatchers("/excluirCurso").permitAll()
-                        .anyRequest().authenticated()
+                .requestMatchers("/login", "/css/**", "/js/**", "/images/**").permitAll()
+                .requestMatchers( "/menuPrincipal", "/cadastroPessoa").hasAnyRole("ADMIN", "PROFESSOR")
+                .requestMatchers( "/menuPrincipalEstudante").hasRole("ESTUDANTE")
+
+
+                .anyRequest().authenticated()
                 )
                 .formLogin(configurer -> configurer
                         .loginPage("/login")
-                        .defaultSuccessUrl("/menuPrincipal", true)
+                        .successHandler(customAuthSuccessHandler(pessoaRepository))
                         .failureUrl("/login?error=true")
                         .permitAll()
                 )
@@ -53,5 +56,10 @@ public class SecurityConfiguration {
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring().requestMatchers("/css/**", "/js/**", "/images/**", "/style.css");
+    }
+
+    @Bean
+    public CustomAuthSuccessHandler customAuthSuccessHandler(PessoaRepository pessoaRepository) {
+        return new CustomAuthSuccessHandler(pessoaRepository);
     }
 }

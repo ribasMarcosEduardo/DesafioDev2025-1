@@ -37,5 +37,8 @@ public class Pessoa{
     @Column(name = "SENHA", nullable = false)
     private String senha;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role")
+    private UserRole role;
 
 }

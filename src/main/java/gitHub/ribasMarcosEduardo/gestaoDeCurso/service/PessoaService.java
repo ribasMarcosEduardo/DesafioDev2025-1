@@ -33,18 +33,22 @@ public class PessoaService {
     }
 
     public Pessoa atualizarPessoa(Pessoa pessoa) {
-        pessoa.setCpf(pessoa.getCpf().replaceAll("\\D", ""));
-        validator.cpfExistEdit(pessoa);
+        Pessoa pessoaExistente = repository.findById(pessoa.getId())
+                .orElseThrow(() -> new RuntimeException("Pessoa não encontrada"));
 
-        pessoa.setNome(pessoa.getNome());
-        pessoa.setEmail(pessoa.getEmail());
-        pessoa.setTelefone(pessoa.getTelefone());
-        pessoa.setUsuario(pessoa.getUsuario());
-        pessoa.setSenha(pessoa.getSenha());
-        pessoa.setAtivo(pessoa.isAtivo());
-        String encryptedPassword = new BCryptPasswordEncoder().encode(pessoa.getSenha());
-        pessoa.setSenha(encryptedPassword);
-        return repository.save(pessoa);
+        pessoaExistente.setNome(pessoa.getNome());
+        pessoaExistente.setEmail(pessoa.getEmail());
+        pessoaExistente.setTelefone(pessoa.getTelefone());
+        pessoaExistente.setUsuario(pessoa.getUsuario());
+        pessoaExistente.setAtivo(pessoa.isAtivo());
+
+        if (pessoa.getSenha() != null && !pessoa.getSenha().isEmpty()) {
+            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+            pessoaExistente.setSenha(passwordEncoder.encode(pessoa.getSenha()));
+        }
+
+        validator.cpfExistEdit(pessoaExistente);
+        return repository.save(pessoaExistente);
     }
 
     public void excluirPessoa(int id) {

@@ -4,8 +4,10 @@ import gitHub.ribasMarcosEduardo.gestaoDeCurso.entity.*;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.repository.*;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.validator.exeption.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.util.Objects;
 import java.util.Optional;
 
 @Component
@@ -148,6 +150,11 @@ public class Validator {
             throw new Dependencias("Não é possível excluir, pois o curso possui estudantes matriculados.");
         }
     }
+
+    //------------------------------------------------------------------------------------------------------------------
+
+
+
 
 }
 

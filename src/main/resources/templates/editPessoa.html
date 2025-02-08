@@ -82,6 +82,7 @@
     <div style="position: relative;">
         <form class="form-container" th:action="@{/pessoa/atualizarPessoa}" th:object="${pessoaDTO}" method="post">
             <input type="hidden" th:field="*{id}">
+
             <div class="row">
                 <div class="col">
                     <label class="form-label">Nome:</label>
@@ -116,7 +117,7 @@
 
                 <div class="col">
                     <label class="form-label">Senha:</label>
-                    <input type="password" class="form-control" th:field="*{senha}">
+                    <input type="password" id="senha" class="form-control" th:field="*{senha}" >
                 </div>
             </div>
 

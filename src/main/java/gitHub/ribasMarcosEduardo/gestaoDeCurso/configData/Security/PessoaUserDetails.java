@@ -16,8 +16,7 @@ public class PessoaUserDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-
-        return List.of(new SimpleGrantedAuthority("USER"));
+        return List.of(new SimpleGrantedAuthority("ROLE_" + pessoa.getRole().name()));
     }
 
     @Override
@@ -59,7 +58,7 @@ public class PessoaUserDetails implements UserDetails {
         return "PessoaUserDetails{" +
                 "usuario=" + pessoa.getUsuario() +
                 ", ativo=" + pessoa.isAtivo() +
+                ", role=" + pessoa.getRole() +
                 '}';
     }
-
 }
