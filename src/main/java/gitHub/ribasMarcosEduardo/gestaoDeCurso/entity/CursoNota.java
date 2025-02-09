@@ -19,4 +19,12 @@ public class CursoNota {
         @ManyToOne
         @JoinColumn(name = "EST_CURSO", nullable = false)
         private EstudanteCurso estudante;
+
+        @Enumerated(EnumType.STRING)
+        @Column(name="tipNota")
+        private TipNota tipNota;
+
+
+        @Column(name = "valor")
+        private Double valor;
 }

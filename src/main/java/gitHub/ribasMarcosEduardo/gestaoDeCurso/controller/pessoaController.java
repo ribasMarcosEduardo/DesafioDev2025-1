@@ -22,7 +22,6 @@ public class pessoaController {
 
     @PostMapping("salvarPessoa")
     public String salvarPessoa(@ModelAttribute PessoaDTO pessoaDTO, RedirectAttributes redirectAttributes) {
-        System.out.println("PessoaDTO - Usuário: " + pessoaDTO.usuario() + ", Ativo: " + pessoaDTO.ativo());
         Pessoa pessoa = pessoaDTO.mapearPessoa();
         pessoaService.salvarPessoa(pessoa);
         redirectAttributes.addFlashAttribute("mensagemSucesso", "Pessoa salva com sucesso!");

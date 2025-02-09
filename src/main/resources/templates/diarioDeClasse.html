@@ -45,31 +45,63 @@
     </div>
 </nav>
 
+<div class="div-alert">
+    <div style=" text-align: center; line-height: 50px;" th:if="${mensagemSucesso}" id="success-alert" class="alert alert-success">
+        <p th:text="${mensagemSucesso}"></p>
+    </div>
+</div>
+
 <div class="container">
     <div class="div-borda">
-        <h3 style="text-align: center;">Estudantes do Curso: <span th:text="${nomeCurso}"></span></h3>
+        <h3 style="text-align: center;">
+            Estudantes do Curso: <span th:text="${nomeCurso}"></span>
+        </h3>
         <a th:href="@{/menuPrincipalProfessor}" class="btn" style="font-size: 25px;">←</a>
 
         <div class="table-container">
             <table class="table table-bordered">
                 <thead>
                 <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Nome:</th>
-                    <th scope="col">Nota 1:</th>
-                    <th scope="col">Nota 2:</th>
-                    <th scope="col">Nota 3:</th>
-                    <th scope="col">Qnt. Faltas:</th>
+                    <th>#</th>
+                    <th>Nome</th>
+                    <th>Nota 1</th>
+                    <th>Nota 2</th>
+                    <th>Nota 3</th>
                 </tr>
+                <tr>
+
                 </thead>
-                <tbody >
+
+                <tbody>
                 <tr th:each="estudante : ${nomesEstudantes}">
                     <td th:text="${estudante.id}"></td>
                     <td th:text="${estudante.estudante.nome}"></td>
-                    <td><input class="form-control" style="width: 50px; text-align: center; display: block; margin: auto;" maxlength="2"/></td>
-                    <td><input class="form-control" style="width: 50px; text-align: center; display: block; margin: auto;" maxlength="2"/></td>
-                    <td><input class="form-control" style="width: 50px; text-align: center; display: block; margin: auto;" maxlength="2"/></td>
-                    <td><input class="form-control" type="number" style="width: 50px; text-align: center; display: block; margin: auto;" /></td>
+                    <td>
+                        <form th:action="@{/estudanteCurso/lancarNota1}" method="post" onsubmit="recarregarPagina()">
+                            <input type="hidden" name="idEstudante" th:value="${estudante.id}">
+                            <input type="hidden" name="nomeCurso" th:value="${nomeCurso}">
+                            <button type="submit" class="btn btn-sm">Publicar</button>
+                            <input type="text" name="valor" class="form-control" style="width: 50px; text-align: center; display: block; margin: auto;" maxlength="4"/>
+                        </form>
+                    </td>
+
+                    <td>
+                        <form th:action="@{/estudanteCurso/lancarNota2}" method="post" onsubmit="recarregarPagina()">
+                            <input type="hidden" name="idEstudante" th:value="${estudante.id}">
+                            <input type="hidden" name="nomeCurso" th:value="${nomeCurso}">
+                            <button type="submit" class="btn btn-sm">Publicar</button>
+                            <input type="text" name="valor" class="form-control" style="width: 50px; text-align: center; display: block; margin: auto;" maxlength="4"/>
+                        </form>
+                    </td>
+
+                    <td>
+                        <form th:action="@{/estudanteCurso/lancarNota3}" method="post" onsubmit="recarregarPagina()">
+                            <input type="hidden" name="idEstudante" th:value="${estudante.id}">
+                            <input type="hidden" name="nomeCurso" th:value="${nomeCurso}">
+                            <button type="submit" class="btn btn-sm">Publicar</button>
+                            <input type="text" name="valor" class="form-control" style="width: 50px; text-align: center; display: block; margin: auto;" maxlength="4"/>
+                        </form>
+                    </td>
                 </tr>
                 </tbody>
             </table>
@@ -77,6 +109,29 @@
     </div>
 </div>
 
+<script>
+    setTimeout(() => document.querySelectorAll('.alert').forEach(alert => alert.remove()), 3000);
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+
+        let inputsNota = document.querySelectorAll("input[name='valor']");
+
+        inputsNota.forEach(input => {
+            input.addEventListener("input", function() {
+
+                this.value = this.value.replace(",", ".");
+
+
+                this.value = this.value.replace(/[^0-9.]/g, '');
+                if ((this.value.match(/\./g) || []).length > 1) {
+                    this.value = this.value.replace(/\.+$/, ""); // Remove pontos extras
+                }
+            });
+        });
+    });
+</script>
 
 <script>
     document.getElementById("logoutForm").addEventListener("submit", function(event) {
@@ -93,7 +148,6 @@
         });
     });
 </script>
-
 
 </body>
 </html>

@@ -1,8 +1,7 @@
 package gitHub.ribasMarcosEduardo.gestaoDeCurso.service;
 
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.entity.Curso;
-import gitHub.ribasMarcosEduardo.gestaoDeCurso.entity.EstudanteCurso;
-import gitHub.ribasMarcosEduardo.gestaoDeCurso.entity.Pessoa;
+import gitHub.ribasMarcosEduardo.gestaoDeCurso.repository.CursoNotaRapository;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.repository.CursoRepository;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.repository.EstudanteCurRepository;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.validator.Validator;
@@ -10,15 +9,12 @@ import gitHub.ribasMarcosEduardo.gestaoDeCurso.validator.exeption.ObjetoNaoEncon
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
 @Service
 @RequiredArgsConstructor
 public class CursoService {
 
     private final CursoRepository repository;
+    private final CursoNotaRapository cursoNotaRepository;
     private final EstudanteCurRepository estudanteCurRepository;
     private final Validator validator;
 
@@ -52,3 +48,5 @@ public class CursoService {
 
 
 }
+
+
