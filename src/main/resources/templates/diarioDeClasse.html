@@ -22,7 +22,6 @@
                     <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Curso</button>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="">Matricular Estudante</a></li>
-                        <li><a class="dropdown-item" href="">Professor da Oferta</a></li>
                     </ul>
                 </li>
             </ul>
@@ -46,48 +45,38 @@
     </div>
 </nav>
 
-<form id="cursoForm" action="/curso/cursos" method="get"></form>
-
 <div class="container">
     <div class="div-borda">
-        <h3 style="text-align: center;">Cursos Lecionados:</h3>
-        <button id="refreshCursos" class="btn" style="background: none; font-size: 25px;">↻</button>
+        <h3 style="text-align: center;">Estudantes do Curso: <span th:text="${nomeCurso}"></span></h3>
+        <a th:href="@{/menuPrincipalProfessor}" class="btn" style="font-size: 25px;">←</a>
 
         <div class="table-container">
             <table class="table table-bordered">
                 <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Curso:</th>
-                        <th scope="col">Estudantes:</th>
-                        <th scope="col">Visualizar:</th>
-                    </tr>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nome:</th>
+                    <th scope="col">Nota 1:</th>
+                    <th scope="col">Nota 2:</th>
+                    <th scope="col">Nota 3:</th>
+                    <th scope="col">Qnt. Faltas:</th>
+                </tr>
                 </thead>
-                <tbody id="cursosBody">
-                    <tr th:each="curso : ${cursos}">
-                        <td th:text="${curso.id}"></td>
-                        <td th:text="${curso.nome}"></td>
-                        <td th:text="${quantidades != null && quantidades.get(curso.id) != null} ? ${quantidades.get(curso.id)} : 0"></td>
-                        <td><a th:href="@{/curso/diarioDeClasse(nome=${curso.nome})}" class="btn btn-primary">Diário de classe</a></td>
-                    </tr>
+                <tbody >
+                <tr th:each="estudante : ${nomesEstudantes}">
+                    <td th:text="${estudante.id}"></td>
+                    <td th:text="${estudante.estudante.nome}"></td>
+                    <td><input class="form-control" style="width: 50px; text-align: center; display: block; margin: auto;" maxlength="2"/></td>
+                    <td><input class="form-control" style="width: 50px; text-align: center; display: block; margin: auto;" maxlength="2"/></td>
+                    <td><input class="form-control" style="width: 50px; text-align: center; display: block; margin: auto;" maxlength="2"/></td>
+                    <td><input class="form-control" type="number" style="width: 50px; text-align: center; display: block; margin: auto;" /></td>
+                </tr>
                 </tbody>
             </table>
         </div>
     </div>
 </div>
 
-<script>
-    document.getElementById("refreshCursos").addEventListener("click", function() {
-        fetch("/curso/cursos", { method: "GET", cache: "no-store" })
-            .then(response => response.text())
-            .then(html => {
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(html, "text/html");
-                document.getElementById("cursosBody").innerHTML = doc.getElementById("cursosBody").innerHTML;
-            })
-            .catch(error => console.error("Erro ao atualizar cursos:", error));
-    });
-</script>
 
 <script>
     document.getElementById("logoutForm").addEventListener("submit", function(event) {

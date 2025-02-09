@@ -31,7 +31,7 @@ public class CustomAuthSuccessHandler extends SimpleUrlAuthenticationSuccessHand
                     setDefaultTargetUrl("/menuPrincipal");
                     break;
                 case PROFESSOR:
-                    setDefaultTargetUrl("/menuPrincipal");
+                    setDefaultTargetUrl("/menuPrincipalProfessor");
                     break;
                 case ESTUDANTE:
                     setDefaultTargetUrl("/menuPrincipalEstudante");

@@ -2,6 +2,7 @@ package gitHub.ribasMarcosEduardo.gestaoDeCurso.service;
 
 
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.entity.ProfessorCurso;
+import gitHub.ribasMarcosEduardo.gestaoDeCurso.entity.UserRole;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.repository.ProfessorRepository;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.validator.Validator;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,7 @@ public class ProfessorService {
         validator.validarPessoa(professorCurso.getProfessor());
         validator.validarCurso(professorCurso.getCurso());
         validator.validarOferta(professorCurso);
+        professorCurso.getProfessor().setRole(UserRole.PROFESSOR);
         return professorRepository.save(professorCurso);
     }
 

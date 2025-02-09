@@ -23,7 +23,6 @@ public interface EstudanteCurRepository extends JpaRepository<EstudanteCurso, In
             "ORDER BY p.nome")
     List<String> findNomesEstudantesByCursoNome(@Param("nomeCurso") String nomeCurso);
 
-
     @Query("SELECT c.nome FROM EstudanteCurso ec " +
             "JOIN ec.curso c " +
             "JOIN ec.estudante p " +
@@ -31,6 +30,11 @@ public interface EstudanteCurRepository extends JpaRepository<EstudanteCurso, In
             "ORDER BY c.nome")
     List<String> findCursosByPessoaNome(@Param("nomePessoa") String nomePessoa);
 
+    @Query("SELECT COUNT(ec) FROM EstudanteCurso ec WHERE ec.curso.id = :cursoId")
+    int countEstudantesByCursoId(@Param("cursoId") int cursoId);
+
+    @Query("SELECT e FROM EstudanteCurso e WHERE e.curso.nome = :nome ORDER BY e.estudante.nome ASC")
+    List<EstudanteCurso> findEstudantesComCodigoPorCursoNome(@Param("nome") String nome);
 
 
 

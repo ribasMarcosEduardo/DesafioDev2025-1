@@ -3,35 +3,33 @@ package gitHub.ribasMarcosEduardo.gestaoDeCurso.controller;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.controller.DTO.CursoDTO;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.entity.Curso;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.entity.EstudanteCurso;
-import gitHub.ribasMarcosEduardo.gestaoDeCurso.entity.Pessoa;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.repository.CursoRepository;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.repository.EstudanteCurRepository;
+import gitHub.ribasMarcosEduardo.gestaoDeCurso.repository.ProfessorRepository;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.service.CursoService;
-import gitHub.ribasMarcosEduardo.gestaoDeCurso.validator.Validator;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.nio.charset.StandardCharsets;
-import java.util.Collections;
+import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @Controller
 @RequestMapping("/curso")
 public class cursoController {
 
-    private final Validator validator;
     private final CursoService cursoService;
-    private final CursoRepository cursoRepository;
     private final EstudanteCurRepository estudanteCurRepository;
+    private final ProfessorRepository professorRepository;
+
+    //------------------------------------------------------------------------------------------------------------------
+
+    // Cadastrar um novo curso - cadastroCurso
 
     @PostMapping("/salvarCurso")
     public String salvarCurso(@ModelAttribute CursoDTO cursoDTO, RedirectAttributes redirectAttributes) {
@@ -40,6 +38,10 @@ public class cursoController {
         redirectAttributes.addFlashAttribute("mensagemSucesso", "Curso salva com sucesso!");
         return "redirect:/cadastroCurso";
     }
+
+    //------------------------------------------------------------------------------------------------------------------
+
+    // Buscar Curso pelo nome - barra de pesquisa para o edit
 
     @GetMapping("/buscarC")
     public String buscarC(@RequestParam String nome, Model model) {
@@ -50,6 +52,10 @@ public class cursoController {
         return "editCurso";
     }
 
+    //------------------------------------------------------------------------------------------------------------------
+
+    // Atualizar curso - editCurso
+
     @PostMapping("/atualizarCurso")
     public String atualizarCurso(@ModelAttribute CursoDTO cursoDTO, RedirectAttributes redirectAttributes) {
         Curso curso = cursoDTO.mapearCurso();
@@ -58,6 +64,10 @@ public class cursoController {
         return "redirect:/buscarCurso";
     }
 
+    //------------------------------------------------------------------------------------------------------------------
+
+    // Excluir curso - editCurso
+
     @DeleteMapping("/excluirCurso/{id}")
     public String excluirPessoa(@PathVariable int id, RedirectAttributes redirectAttributes) {
         cursoService.excluirCurso(id);
@@ -65,10 +75,9 @@ public class cursoController {
         return "redirect:/cadastroCurso";
     }
 
-    @GetMapping("/cursoMatriculas")
-    public String cursoMatriculas() {
-        return "cursoMatriculas";
-    }
+    //------------------------------------------------------------------------------------------------------------------
+
+    // Relatório de estudantes por curso
 
     @PostMapping("/mostrarEstudantes")
     public String listarEstudantesPorCurso(@RequestParam String nomeCurso, Model model) {
@@ -80,6 +89,10 @@ public class cursoController {
         return "listaEstudantes";
     }
 
+    //------------------------------------------------------------------------------------------------------------------
+
+    // Relatório de curso por estudante
+
     @PostMapping("/mostrarCursosEstudante")
     public String listarCursosPorEstudante(@RequestParam String nomePessoa, Model model) {
         List<String> cursos = estudanteCurRepository.findCursosByPessoaNome(nomePessoa);
@@ -89,6 +102,40 @@ public class cursoController {
 
         return "listaCursosEstudante";
     }
+
+    //------------------------------------------------------------------------------------------------------------------
+
+    // Tabela de cursos do professor
+
+    @GetMapping("/cursos")
+    public String listarCursos(Model model, Principal principal) {
+
+        String nomeProfessor = principal.getName();
+        List<Curso> cursos = professorRepository.findCursosByProfessorNome(nomeProfessor);
+
+        Map<Integer, Integer> quantidades = new HashMap<>();
+        for (Curso curso : cursos) {
+            int quantidade = estudanteCurRepository.countEstudantesByCursoId(curso.getId());
+            quantidades.put(curso.getId(), quantidade);
+        }
+
+        model.addAttribute("cursos", cursos);
+        model.addAttribute("quantidades", quantidades);
+
+        return "menuPrincipalProfessor";
+    }
+
+    //------------------------------------------------------------------------------------------------------------------
+
+    @GetMapping("/diarioDeClasse")
+    public String diarioDeClasse(@RequestParam String nome, Model model) {
+        List<EstudanteCurso> nomesEstudantes = estudanteCurRepository.findEstudantesComCodigoPorCursoNome(nome);
+
+        model.addAttribute("nomesEstudantes", nomesEstudantes);
+        model.addAttribute("nomeCurso", nome);
+        return "diarioDeClasse";
+    }
+
 
 }
 

@@ -115,16 +115,16 @@ public class ViewController {
         return "editCurso";
     }
 
+    // Login
 
     @GetMapping("login")
     public String login() {
-
         return "login";
     }
 
 
     @GetMapping("/cursoMatriculas")
-    public String mostrarPaginaDeMatriculas() {
+    public String cursoMatriculas() {
 
         return "cursoMatriculas"; // http://localhost:8080/cursoMatriculas
     }
@@ -134,6 +134,7 @@ public class ViewController {
 
         return "mostrarCursosEstudante"; // http://localhost:8080/mostrarCursosEstudante
     }
+
 
 
 

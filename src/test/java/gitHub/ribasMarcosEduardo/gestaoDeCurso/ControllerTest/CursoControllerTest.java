@@ -5,6 +5,7 @@ import gitHub.ribasMarcosEduardo.gestaoDeCurso.entity.Curso;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.entity.EstudanteCurso;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.repository.CursoRepository;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.repository.EstudanteCurRepository;
+import gitHub.ribasMarcosEduardo.gestaoDeCurso.repository.ProfessorRepository;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.service.CursoService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,10 @@ public class CursoControllerTest {
     @Autowired
     private EstudanteCurRepository estudanteCurRepository;
 
-    @Test
+    @Autowired
+    private ProfessorRepository professorRepository;
+
+    /*@Test
     @Transactional
     public void buscarCursoPorNomeTest() {
         String nomeCurso = "Java";
@@ -45,28 +49,27 @@ public class CursoControllerTest {
         } else {
             System.out.println("Nenhum curso encontrado com o nome: " + nomeCurso);
         }
-    }
-
-        @Test
-        public void listarEstudantesPorCursoTest() {
-            String nomeCurso = "Java";
-
-            List<EstudanteCurso> estudantesCurso = estudanteCurRepository.findByCursoNome(nomeCurso);
-
-            if (!estudantesCurso.isEmpty()) {
-                estudantesCurso.forEach(estudanteCurso -> {
-                    System.out.println("Nome do Estudante: " + estudanteCurso.getEstudante().getNome());
-                });
-            } else {
-                System.out.println("Nenhum estudante encontrado para o curso: " + nomeCurso);
-            }
-
-        }
+    }*/
 
     @Test
-    public void listarCursosTest() {
-        var cursos = cursoRepository.findAll();
-        cursos.forEach(curso -> System.out.println("Curso: " + curso));
+    public void listarCursosPorProfessorTest() {
+        String nomeProfessor = "" + "professor2";
+
+        List<Curso> cursos = professorRepository.findCursosByProfessorNome(nomeProfessor);
+
+        if (!cursos.isEmpty()) {
+            cursos.forEach(curso -> {
+                System.out.println("Curso Ministrado: " + curso.getNome());
+            });
+        } else {
+            System.out.println("Nenhum curso encontrado para o professor: " + nomeProfessor);
+        }
     }
 
-}
+
+    }
+
+
+
+
+
