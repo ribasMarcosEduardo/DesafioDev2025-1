@@ -7,7 +7,7 @@
     <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
     <link rel="stylesheet" href="/style.css">
 
-    <title>Cadastro de Curso</title>
+    <title>Editar de Curso</title>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
@@ -75,7 +75,7 @@
 </div><!-- Alert -->
 
 <div class="div-borda">
-    <h3 class="titulo">Cadastro de Curso:</h3>
+    <h3 class="titulo">Editar de Curso:</h3>
     <div style="position: relative;">
         <form class="form-container" th:action="@{/curso/atualizarCurso}" th:object="${cursoDTO}" method="post">
             <input type="hidden" th:field="*{id}">
