@@ -64,21 +64,36 @@
     </div>
 </nav>
 
-<div class="div-borda">
-    <h3>Cursos do Estudante: <span th:text="${nomePessoa}"></span></h3>
-
-    <form class="form-container">
-        <ul class="list-group">
-            <li class="list-group-item" th:each="curso : ${cursos}" th:text="${curso}"></li>
-        </ul>
-
-        <p th:if="${cursos.isEmpty()}">Nenhum curso encontrado para este estudante.</p>
-
-        <div class="row">
-            <div class="col" style="margin: 10px 0px;">
-                <a th:href="@{/mostrarCursosEstudante}" class="btn btn-primary">Voltar</a>
-            </div>
+<div class="container">
+    <div class="div-borda">
+        <h3 style="text-align: center;">Cursos do Estudante: <span th:text="${nomePessoa}"></span></h3>
+        <a th:href="@{/cursoMatriculas}" class="btn" style="font-size: 25px;">←</a>
+        <div class="table-container">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Curso</th>
+                    <th scope="col">Assunto</th>
+                    <th scope="col">Encontros</th>
+                    <th scope="col">Situação</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="curso, iterStat : ${cursos}">
+                    <td th:text="${iterStat.index + 1}"></td>
+                    <td th:text="${curso[0]}"></td>
+                    <td th:text="${curso[1]}"></td>
+                    <td th:text="${curso[2]}"></td>
+                    <td th:text="${curso[3]}"></td>
+                </tr>
+                </tbody>
+            </table>
         </div>
+        <p th:if="${cursos.isEmpty()}" style="text-align: center; margin-top: 10px;">Nenhum curso encontrado para este estudante.</p>
+    </div>
+</div>
+
     </form>
 </div>
 </body>

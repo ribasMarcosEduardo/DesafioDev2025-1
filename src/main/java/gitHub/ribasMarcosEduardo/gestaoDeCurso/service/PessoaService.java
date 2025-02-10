@@ -1,6 +1,8 @@
 package gitHub.ribasMarcosEduardo.gestaoDeCurso.service;
 
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.entity.Pessoa;
+import gitHub.ribasMarcosEduardo.gestaoDeCurso.entity.PessoaEndereco;
+import gitHub.ribasMarcosEduardo.gestaoDeCurso.repository.EnderecoRepository;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.repository.EstudanteCurRepository;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.repository.PessoaRepository;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.repository.ProfessorRepository;
@@ -10,14 +12,15 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class PessoaService {
 
     private final PessoaRepository repository;
     private final Validator validator;
-    private final ProfessorRepository professorRepository;
-    private final EstudanteCurRepository estudanteCurRepository;
+    private final EnderecoRepository enderecoRepository;
 
     public Pessoa salvarPessoa(Pessoa pessoa) {
         validator.usuarioDuplicado(pessoa);
@@ -46,15 +49,22 @@ public class PessoaService {
             BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
             pessoaExistente.setSenha(passwordEncoder.encode(pessoa.getSenha()));
         }
-
         validator.cpfExistEdit(pessoaExistente);
         return repository.save(pessoaExistente);
     }
 
+
+
     public void excluirPessoa(int id) {
         Pessoa pessoa = repository.findById(id)
-                .orElseThrow(() -> new ObjetoNaoEncontrado("Pessoa não encontrado"));
+                .orElseThrow(() -> new ObjetoNaoEncontrado("Pessoa não encontrada"));
+
         validator.verificarPendenciaPessoa(pessoa);
+
+        Optional<PessoaEndereco> endereco = enderecoRepository.findEnderecoIdByPessoaId(id);
+        endereco.ifPresent(enderecoRepository::delete);
+
+
         repository.delete(pessoa);
     }
 

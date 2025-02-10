@@ -19,7 +19,7 @@ public class PessoaEndereco {
     @Column(name = "CIDADE", length = 150, nullable = false)
     private String cidade;
 
-    @Column(name = "CEP", length = 8, nullable = false)
+    @Column(name = "CEP",nullable = false)
     private String cep;
 
     @Column(name = "RUA", length = 150, nullable = false)

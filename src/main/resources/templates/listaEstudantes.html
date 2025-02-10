@@ -62,24 +62,39 @@
         </div>
     </nav>
 
-        <div class="div-borda">
-            <h3>Estudantes do Curso: <span th:text="${nomeCurso}"></span></h3>
-
-            <form class="form-container">
-
-            <ul class="list-group">
-                <li  class="list-group-item" th:each="estudante : ${nomesEstudantes}" th:text="${estudante}"></li>
-            </ul>
-
-            <p th:if="${nomesEstudantes.isEmpty()}">Nenhum estudante encontrado para este curso.</p>
-
-                <div class="row">
-                    <div class="col" style="margin: 10px 0px;">
-                        <a th:href="@{/cursoMatriculas}" class="btn btn-primary">Voltar</a>
-                    </div>
+        <div class="container">
+            <div class="div-borda">
+                <h3 style="text-align: center;">Estudantes do Curso: <span th:text="${nomeCurso}"></span></h3>
+                <a th:href="@{/cursoMatriculas}" class="btn" style="font-size: 25px;">←</a>
+                <div class="table-container">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Nome</th>
+                            <th scope="col">CPF</th>
+                            <th scope="col">Telefone</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Ativo</th>
+                            <th scope="col">Role</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="estudante, iterStat : ${estudantes}">
+                            <td th:text="${iterStat.index + 1}"></td>
+                            <td th:text="${estudante[1]}"></td>
+                            <td th:text="${estudante[2]}"></td>
+                            <td th:text="${estudante[3]}"></td>
+                            <td th:text="${estudante[4]}"></td>
+                            <td th:text="${estudante[5]}"></td>
+                            <td th:text="${estudante[6]}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
-
-            </form>
+                <p th:if="${estudantes.isEmpty()}" style="text-align: center; margin-top: 10px;">Nenhum estudante encontrado para este curso.</p>
+            </div>
         </div>
+
     </body>
 </html>

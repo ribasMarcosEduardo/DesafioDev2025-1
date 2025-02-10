@@ -19,6 +19,7 @@ public class Validator {
     private final CursoRepository cursoRepository;
     private final PessoaRepository pessoaRepository;
     private final EstudanteCurRepository estudanteCurRepository;
+    private final CursoPresencaRepository cursoPresencaRepository;
 
     // Validação de Endereço
 
@@ -107,6 +108,10 @@ public class Validator {
         }
     }
 
+
+
+
+
     //------------------------------------------------------------------------------------------------------------------
 
     // Validação tela de busca e edição
@@ -152,6 +157,33 @@ public class Validator {
     }
 
     //------------------------------------------------------------------------------------------------------------------
+
+    //Validar nota
+
+    public void validarNota(CursoNota cursoNota){
+        double nota = cursoNota.getValor();
+        if(nota < 0 || nota > 10){
+            throw new Dependencias("Nota Invalida!!");
+        }
+    }
+
+    //------------------------------------------------------------------------------------------------------------------
+
+    // Validar Presença
+
+    public void validarPresenca(int cursoId) {
+
+        Curso curso = cursoRepository.findById(cursoId)
+                .orElseThrow(() -> new RuntimeException("Curso não encontrado"));
+
+        long presencasRegistradas = cursoPresencaRepository.countPresencasByCursoId(cursoId);
+
+        if (presencasRegistradas >= curso.getEncontros()) {
+            throw new Dependencias("Não é possível registrar mais presenças do que os encontros permitidos.");
+        }
+    }
+
+
 
 
 

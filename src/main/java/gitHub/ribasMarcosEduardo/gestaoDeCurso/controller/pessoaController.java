@@ -6,10 +6,15 @@ import gitHub.ribasMarcosEduardo.gestaoDeCurso.repository.PessoaRepository;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.service.PessoaService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.security.Principal;
+import java.util.Optional;
 
 
 @RequiredArgsConstructor
@@ -44,12 +49,61 @@ public class pessoaController {
         return "redirect:/buscarPessoa";
     }
 
+
     @DeleteMapping("/excluirPessoa/{id}")
     public String excluirPessoa(@PathVariable int id, RedirectAttributes redirectAttributes) {
         pessoaService.excluirPessoa(id);
         redirectAttributes.addFlashAttribute("mensagemSucesso", "Pessoa excluída com sucesso!");
         return "redirect:/cadastroPessoa";
     }
+
+    @GetMapping("/editar")
+    public String exibirEdicaoPessoa(@AuthenticationPrincipal UserDetails userDetails, Model model) {
+        if (userDetails == null) {
+            return "redirect:/login";
+        }
+
+        String usuario = userDetails.getUsername();
+        Optional<Pessoa> pessoa = pessoaRepository.findByUsuario(usuario);
+
+        if (pessoa == null) {
+            return "redirect:/erro";
+        }
+
+        PessoaDTO pessoaDTO = PessoaDTO.capturarPessoa(pessoa.get());
+        model.addAttribute("pessoaDTO", pessoaDTO);
+        return "editUsuario";
+    }
+
+    @PostMapping("/atualizarUsuario")
+    public String atualizarUsuario(@ModelAttribute PessoaDTO pessoaDTO, RedirectAttributes redirectAttributes, Principal principal) {
+        Pessoa pessoa = pessoaDTO.mapearPessoa();
+        pessoaService.atualizarPessoa(pessoa);
+        redirectAttributes.addFlashAttribute("mensagemSucesso", "Pessoa atualizada com sucesso!");
+
+        String usuarioLogado = principal.getName();
+
+        Optional<Pessoa> pessoaLogadaOpt = pessoaRepository.findByUsuario(usuarioLogado);
+
+        if (pessoaLogadaOpt.isPresent() && pessoaLogadaOpt.get().getRole() != null) {
+            Pessoa pessoaLogada = pessoaLogadaOpt.get();
+            switch (pessoaLogada.getRole()) {
+                case ADMIN:
+                    return "redirect:/menuPrincipal";
+                case PROFESSOR:
+                    return "redirect:/menuPrincipalProfessor";
+                case ESTUDANTE:
+                    return "redirect:/menuPrincipalEstudante";
+                default:
+                    return "redirect:/menuPrincipal";
+            }
+        } else {
+
+            return "redirect:/menuPrincipal";
+        }
+    }
+
+
 
 
 

@@ -16,6 +16,8 @@ public interface EnderecoRepository extends JpaRepository<PessoaEndereco, Intege
 
     Optional<PessoaEndereco> findByPessoa_Id(int codPessoa);
 
+    Optional<PessoaEndereco> findEnderecoIdByPessoaId(int pessoaid);
+
 
 }
 

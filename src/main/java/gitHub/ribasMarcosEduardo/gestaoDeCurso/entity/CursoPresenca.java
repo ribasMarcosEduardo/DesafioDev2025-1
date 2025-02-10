@@ -21,5 +21,9 @@ public class CursoPresenca {
     @JoinColumn(name = "CODCURSO", nullable = false)
     private Curso curso;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "PRESENCA")
+    private Presenca presenca;
+
 
 }

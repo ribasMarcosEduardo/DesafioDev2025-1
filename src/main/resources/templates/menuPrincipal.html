@@ -55,6 +55,9 @@
                         <form id="logoutForm" action="/logout" method="POST">
                             <button class="dropdown-item" type="submit">Logout</button>
                         </form>
+                        <form id="" action="/pessoa/editar" method="GET">
+                            <button class="dropdown-item" type="submit">Editar perfil</button>
+                        </form>
                     </li>
                 </ul>
             </li>
@@ -62,7 +65,7 @@
     </div>
 </nav>
 
-<p sec:authorize="hasRole('ADMIN')">Este parágrafo só é visível para administradores.</p>
+<p sec:authorize="hasRole('ADMIN')">ADMIN</p>
 
 <script>
     document.getElementById("logoutForm").addEventListener("submit", function(event) {

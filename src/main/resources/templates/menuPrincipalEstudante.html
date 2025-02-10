@@ -16,18 +16,7 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
-            <ul class="navbar-nav">
-                <li class="nav-item dropdown">
-                    <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Curso</button>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="http://localhost:8080/cadastroPessoa">Pessoa</a></li>
-                        <li><a class="dropdown-item" href="http://localhost:8080/cadastroEndereco">Endereço</a></li>
-                        <li><a class="dropdown-item" href="http://localhost:8080/cadastroCurso">Curso</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
+
         <ul class="navbar-nav ms-auto">
             <li class="nav-item dropdown">
                 <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
@@ -39,6 +28,9 @@
                     <li>
                         <form id="logoutForm" action="/logout" method="POST">
                             <button class="dropdown-item" type="submit">Logout</button>
+                        </form>
+                        <form id="" action="/pessoa/editar" method="GET">
+                            <button class="dropdown-item" type="submit">Editar perfil</button>
                         </form>
                     </li>
                 </ul>

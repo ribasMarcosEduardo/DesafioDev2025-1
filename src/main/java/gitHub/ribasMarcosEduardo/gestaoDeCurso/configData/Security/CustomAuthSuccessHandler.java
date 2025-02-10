@@ -26,6 +26,8 @@ public class CustomAuthSuccessHandler extends SimpleUrlAuthenticationSuccessHand
         Pessoa pessoa = pessoaRepository.findByUsuario(username).orElse(null);
 
         if (pessoa != null) {
+            request.getSession().setAttribute("usuarioRole", pessoa.getRole().name()); // Salva na sessão
+
             switch (pessoa.getRole()) {
                 case ADMIN:
                     setDefaultTargetUrl("/menuPrincipal");
@@ -46,4 +48,5 @@ public class CustomAuthSuccessHandler extends SimpleUrlAuthenticationSuccessHand
 
         super.onAuthenticationSuccess(request, response, authentication);
     }
+
 }

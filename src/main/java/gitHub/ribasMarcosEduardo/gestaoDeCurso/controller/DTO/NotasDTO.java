@@ -2,6 +2,11 @@ package gitHub.ribasMarcosEduardo.gestaoDeCurso.controller.DTO;
 
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.entity.*;
 
+import java.util.ArrayList;
+import java.util.EnumMap;
+import java.util.List;
+import java.util.Map;
+
 public record NotasDTO(
         EstudanteCurso estudante,
         Curso curso,
@@ -21,5 +26,11 @@ public record NotasDTO(
         nota.setTipNota(TipNota.valueOf(this.tipNota.name()));
         return nota;
     }
+    
+
+
+
+
+
 
 }

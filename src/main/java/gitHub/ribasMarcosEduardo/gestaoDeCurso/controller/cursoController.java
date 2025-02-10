@@ -3,7 +3,7 @@ package gitHub.ribasMarcosEduardo.gestaoDeCurso.controller;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.controller.DTO.CursoDTO;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.entity.Curso;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.entity.EstudanteCurso;
-import gitHub.ribasMarcosEduardo.gestaoDeCurso.repository.CursoRepository;
+import gitHub.ribasMarcosEduardo.gestaoDeCurso.entity.Situacao;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.repository.EstudanteCurRepository;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.repository.ProfessorRepository;
 import gitHub.ribasMarcosEduardo.gestaoDeCurso.service.CursoService;
@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -81,9 +82,11 @@ public class cursoController {
 
     @PostMapping("/mostrarEstudantes")
     public String listarEstudantesPorCurso(@RequestParam String nomeCurso, Model model) {
-        List<String> nomesEstudantes = estudanteCurRepository.findNomesEstudantesByCursoNome(nomeCurso);
+        List<Object[]> estudantes = estudanteCurRepository.findEstudantesByCursoNome(nomeCurso);
 
-        model.addAttribute("nomesEstudantes", nomesEstudantes);
+        System.out.println("Estudantes encontrados: " + estudantes);
+
+        model.addAttribute("estudantes", estudantes);
         model.addAttribute("nomeCurso", nomeCurso);
 
         return "listaEstudantes";
@@ -95,14 +98,13 @@ public class cursoController {
 
     @PostMapping("/mostrarCursosEstudante")
     public String listarCursosPorEstudante(@RequestParam String nomePessoa, Model model) {
-        List<String> cursos = estudanteCurRepository.findCursosByPessoaNome(nomePessoa);
+        List<Object[]> cursos = estudanteCurRepository.findCursosByPessoaNome(nomePessoa);
 
         model.addAttribute("cursos", cursos);
         model.addAttribute("nomePessoa", nomePessoa);
 
         return "listaCursosEstudante";
     }
-
     //------------------------------------------------------------------------------------------------------------------
 
     // Tabela de cursos do professor
@@ -113,13 +115,18 @@ public class cursoController {
         String nomeProfessor = principal.getName();
         List<Curso> cursos = professorRepository.findCursosByProfessorNome(nomeProfessor);
 
+
+        List<Curso> cursosAtivos = cursos.stream()
+                .filter(curso -> curso.getSituacao() == Situacao.Ativo)
+                .toList();
+
         Map<Integer, Integer> quantidades = new HashMap<>();
-        for (Curso curso : cursos) {
+        for (Curso curso : cursosAtivos) {
             int quantidade = estudanteCurRepository.countEstudantesByCursoId(curso.getId());
             quantidades.put(curso.getId(), quantidade);
         }
 
-        model.addAttribute("cursos", cursos);
+        model.addAttribute("cursos", cursosAtivos);
         model.addAttribute("quantidades", quantidades);
 
         return "menuPrincipalProfessor";

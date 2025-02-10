@@ -16,19 +16,20 @@ public interface EstudanteCurRepository extends JpaRepository<EstudanteCurso, In
 
     boolean existsByCurso_Id(int cursoId);
 
-    @Query("SELECT p.nome FROM EstudanteCurso ec " +
+    @Query("SELECT p.id, p.nome, p.cpf, p.telefone, p.email, p.ativo, p.role " +
+            "FROM EstudanteCurso ec " +
             "JOIN ec.estudante p " +
             "JOIN ec.curso c " +
             "WHERE c.nome = :nomeCurso " +
             "ORDER BY p.nome")
-    List<String> findNomesEstudantesByCursoNome(@Param("nomeCurso") String nomeCurso);
+    List<Object[]> findEstudantesByCursoNome(@Param("nomeCurso") String nomeCurso);
 
-    @Query("SELECT c.nome FROM EstudanteCurso ec " +
+    @Query("SELECT c.nome, c.assunto, c.encontros, c.situacao FROM EstudanteCurso ec " +
             "JOIN ec.curso c " +
             "JOIN ec.estudante p " +
             "WHERE p.nome = :nomePessoa " +
             "ORDER BY c.nome")
-    List<String> findCursosByPessoaNome(@Param("nomePessoa") String nomePessoa);
+    List<Object[]> findCursosByPessoaNome(@Param("nomePessoa") String nomePessoa);
 
     @Query("SELECT COUNT(ec) FROM EstudanteCurso ec WHERE ec.curso.id = :cursoId")
     int countEstudantesByCursoId(@Param("cursoId") int cursoId);

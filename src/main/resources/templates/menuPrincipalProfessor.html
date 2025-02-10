@@ -11,6 +11,16 @@
 </head>
 <body>
 
+
+<div class="div-alert">
+    <div th:if="${mensagemSucesso}" id="success-alert" class="alert alert-success text-center">
+        <p th:text="${mensagemSucesso}"></p>
+    </div>
+    <div th:if="${ObjetoDuplicado}" id="error-alert" class="alert alert-danger">
+        <p th:text="${ObjetoDuplicado}"></p>
+    </div>
+</div>
+
 <nav class="navbar navbar-expand-lg custom-header">
     <div class="container-fluid">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -18,13 +28,6 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
             <ul class="navbar-nav">
-                <li class="nav-item dropdown">
-                    <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Curso</button>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="">Matricular Estudante</a></li>
-                        <li><a class="dropdown-item" href="">Professor da Oferta</a></li>
-                    </ul>
-                </li>
             </ul>
         </div>
         <ul class="navbar-nav ms-auto">
@@ -38,6 +41,9 @@
                     <li>
                         <form id="logoutForm" action="/logout" method="POST">
                             <button class="dropdown-item" type="submit">Logout</button>
+                        </form>
+                        <form id="" action="/pessoa/editar" method="GET">
+                            <button class="dropdown-item" type="submit">Editar perfil</button>
                         </form>
                     </li>
                 </ul>
@@ -75,6 +81,10 @@
         </div>
     </div>
 </div>
+
+<script>
+    setTimeout(() => document.querySelectorAll('.alert').forEach(alert => alert.remove()), 3000);
+</script>
 
 <script>
     document.getElementById("refreshCursos").addEventListener("click", function() {
