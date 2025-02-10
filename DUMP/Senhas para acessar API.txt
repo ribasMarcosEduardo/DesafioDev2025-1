@@ -1,0 +1,5 @@
+Para simplificar os testes, deixei as senhas semelhantes aos nomes dos usuários, ou seja, se o usuário for chamado "admin", a senha será "admin".
+
+Dependendo da role do usuário, o menu principal será diferente, sendo o "admin" o que exige mais informações e implementações. Não consegui implementar 
+apenas os itens 10, 11 e 12 devido à falta de tempo, mas, de qualquer forma, me diverti muito realizando o desafio!
+
